@@ -22,15 +22,18 @@ const Index = () => {
       <Link className='hover:text-white font-bold m-10 'to='/users'>Cadastrar-se</Link>
       <Link className='hover:text-white font-bold m-10' to='/login'>Entrar</Link>
       </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
       {incidents.map(incident => (
-      <div key={incident.id} class="mx-2 mb-10 max-w-sm bg-blue-200 border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
-          <div id="header" class="flex items-center mb-4"> 
-            <a href={incident.images.url}><img alt="avatar" class="w-20 rounded-full border-2 border-gray-300" src={incident.images.url} /></a>
-            <div id="header-text" class="leading-5 ml-6 sm">
-                <h4 id="name" class="text-xl font-semibold">{incident.name}</h4>
-                <h5 id="job" class="font-semibold text-blue-600">{incident.city}</h5>
-                <h5 id="job" class="font-semibold text-blue-600">{incident.neighborhood} </h5>
+      <div key={incident.id} className="mx-2 mb-10 max-w-sm bg-blue-200 border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
+          <div  id="header" className="flex items-center mb-4"> 
+          { incident.images && 
+          incident.images.url && 
+          <img alt="avatar" className="w-20 rounded-full border-2 border-gray-300" src={incident.images.url} /> }
+            
+            <div id="header-text" className="leading-5 ml-6 sm">
+                <h4 id="name" className="text-xl font-semibold">{incident.name}</h4>
+                <h5 id="job" className="font-semibold text-blue-600">{incident.city}</h5>
+                <h5 id="job" className="font-semibold text-blue-600">{incident.neighborhood} </h5>
             </div>
           </div>
           <div id="quote">

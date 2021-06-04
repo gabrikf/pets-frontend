@@ -8,20 +8,25 @@ import api from '../services/api'
 const Login = () => {
   const [email , setEmail] = useState('')
   const [passwd , setPasswd] = useState('')
-  
   const history = useHistory()
 
+  if(localStorage.getItem('token')){
+    history.push('/profile')
+  }
   const handleRegister = async(e) => {
+    
     e.preventDefault()
-
+    
     const data = {
       email,
       passwd
     }
     try {
+     
       const response = await api.post('users/login', data)
+      
       localStorage.setItem('token', response.data.token)
-      console.log(response.data.token)
+      
       history.push('/profile')
       } catch (err) {
         alert('Erro ao fazer o login, tente novamente.')
