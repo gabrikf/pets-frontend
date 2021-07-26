@@ -1,66 +1,58 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import heroImg from '../assets/hero-img.png'
+import catImg from '../assets/gatocao.jpeg'
+import dogImg from '../assets/caogato.png'
+
 import { Link } from 'react-router-dom'
-import { FaWhatsapp, FaLinkedin, FaInstagram, FaLink } from 'react-icons/fa'
-import { AiFillGithub } from 'react-icons/ai'
-import api from '../services/api'
+
+
 
 
 const Index = () => {
-  const [incidents, setIncidents] = useState([])
 
   
-  useEffect(() => {
-    api.get('/')
-    .then(response => {
-      setIncidents(response.data)
-    })
-  }, [])
 
   return (
     <div>
-      <div className='bg-blue-200 text-right p-4 mb-10 shadow h-16'>
-      <Link className='hover:text-white font-bold m-10 'to='/users'>Cadastrar-se</Link>
-      <Link className='hover:text-white font-bold m-10' to='/login'>Entrar</Link>
-      </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
-      {incidents.map(incident => (
-      <div key={incident.id} className="mx-2 mb-10 max-w-sm bg-blue-200 border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
-          <div  id="header" className="flex items-center mb-4"> 
-          { incident.images && 
-          incident.images.url && 
-          <img alt="avatar" className="w-20 rounded-full border-2 border-gray-300" src={incident.images.url} /> }
-            
-            <div id="header-text" className="leading-5 ml-6 sm">
-                <h4 id="name" className="text-xl font-semibold">{incident.name}</h4>
-                <h5 id="job" className="font-semibold text-blue-600">{incident.city}</h5>
-                <h5 id="job" className="font-semibold text-blue-600">{incident.neighborhood} </h5>
-            </div>
-          </div>
-          <div id="quote">
-            <p><strong>Nome do pet: </strong>{incident.pet_name}</p>
-            <p><strong>Tempo de vida do pet: </strong>{incident.pet_age}</p>
-            <p><strong>Tipo de pet: </strong>{incident.animal_type}</p>
-            <p className='h-40'><strong>Descrição: </strong>{incident.description}</p>
-            <p className='text-center'><strong>Contato: </strong></p>
-            <div className="flex justify-center">
-            <a className=' text-xl' href={`https://api.whatsapp.com/send?phone=5547997608709&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}><FaWhatsapp  /></a>
-            </div>
-          </div>
-      </div>
-      ))}
 
-    </div>
-        <div className='bg-blue-200 text-center p-8 shadow h-20'>
-          <div className='container mx-auto text-center font-bold'>     
-            <div className='grid grid-cols-5 justify-items-stretch'>
-              <a   className='text-blue-600 hover:text-black justify-self-center' href='https://www.linkedin.com/in/gabrielkf/'><FaLinkedin /></a>
-              <a className='text-red-600 hover:text-black justify-self-center' href='https://www.instagram.com/gabrikf/'><FaInstagram /></a>
-              <p className='text-xs'>Projeto desenvolvido por Gabriel Koch Fodi</p>
-              <a className='text-purple-600 hover:text-black justify-self-center' href='https://github.com/gabrikf'><AiFillGithub /></a>
-              <a className='text-gray-600 hover:text-black justify-self-center' href='https://gabrikf-resume.vercel.app/'><FaLink /></a>
-            </div>
+    <div className="container px-6 py-16 md:py-28 mx-auto">
+      <div className="items-center lg:flex">
+          <div className="w-full  lg:w-1/2">
+              <div className="lg:max-w-lg">
+                  <h1 className="text-2xl font-semibold text-gray-800 uppercase dark:text-white lg:text-3xl">adote um amigo, ou de a chance de alguem adotar</h1>
+                  <p className="mt-2 mb-6 text-gray-600 dark:text-gray-400">Caso queira adotoar um dos pets basta procura-lo no nosso portal. Mas se sua inteção é botar seu/seus pets para lista de adoção ou interagir com os pets, basta se cadastrar.</p>
+                  <Link to='/users' className="w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Cadastre-se</Link>
+              </div>
           </div>
-        </div>
+         
+                      <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+                          <img className="w-full h-full lg:max-w-2xl" src={heroImg} alt="Catalogue-pana.svg"/>
+                      </div>
+                  </div>
+              </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center lg:m-20 m-5">
+
+
+              <div className="my-6 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
+              <Link  to="/login" ><img className="object-cover w-56 h-36" src={dogImg} alt="avatar"/></Link>
+                    
+                    <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
+                        <Link  to="/login" className="block text-lg text-gray-800 dark:text-white">Entrar</Link>
+                      
+                    </div>
+                </div>
+                <div className="my-2 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
+              <Link  to="/pets" ><img className="object-cover w-56 h-36" src={catImg} alt="avatar"/></Link>
+                    
+                    <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
+                        <Link  to="/pets" className="block text-lg text-gray-800 dark:text-white">Pets</Link>
+                      
+                    </div>
+                </div>
+                
+                </div>
+           
     </div>
   )}
 

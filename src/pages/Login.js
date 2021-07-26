@@ -1,88 +1,93 @@
-import React, {useState} from 'react'
-import { BiUser } from 'react-icons/bi'
-import { AiFillLock } from 'react-icons/ai' 
+import React, { useState } from 'react'
+import useAuth from '../hook/useAuth'
 import { Link, useHistory } from 'react-router-dom'
 import api from '../services/api'
+import Alert from '../components/alert'
+
 
 
 const Login = () => {
+  const { handleSetLogin, login } = useAuth()
   const [email , setEmail] = useState('')
   const [passwd , setPasswd] = useState('')
-  const history = useHistory()
+  const [signInError, setSignInError ] = useState(false)
 
-  if(localStorage.getItem('token')){
-    history.push('/profile')
-  }
-  const handleRegister = async(e) => {
+
+  const handleLogin = async(e) => {
     
     e.preventDefault()
-    
+  
     const data = {
       email,
       passwd
-    }
-    try {
+    } 
+  
      
-      const response = await api.post('users/login', data)
+     const response = await api.post('users/login', data)
+     if(!response.data.error){
       
-      localStorage.setItem('token', response.data.token)
-      
+     
+      handleSetLogin(response.data.token)
+      console.log(response.data.token)
       history.push('/profile')
-      } catch (err) {
-        alert('Erro ao fazer o login, tente novamente.')
-      }
+     }
+      
+       else {
+        setSignInError(true)
+       }
+       
   }
+
+  const history = useHistory()
+
+  if(login){
+   
+    history.push('/profile')
+  }
+  
   return (
-    
-    <div className="bg-blue-200  flex md:mx-80 md:my-40 md:border-4 md:rounded-md md:shadow ">
-      <div className="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
-        <h1 className="font-bold text-2xl my-10 text-white"> Entre </h1>
-    <form onSubmit={handleRegister} className="mt-2 flex flex-col lg:w-1/2 w-8/12">
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
-                <div className="flex -mr-px justify-center w-15 p-4">
-                  <span
-                    className="flex items-center leading-normal bg-white px-3 border-0 rounded rounded-r-none text-2xl text-gray-600"
-                  >
-                    <i><BiUser /></i>
-                  </span>
+      <div className=' '>
+       <div className=" w-full max-w-sm my-36 2xl:my-52 mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div className="px-6 py-4">
+            <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
+
+            <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Bem-vindo</h3>
+
+            <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Entre ou crie uma conta</p>
+
+            <form onSubmit={handleLogin}>
+                <div className="w-full mt-4">
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="email" placeholder="Email Address" aria-label="Email Address"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    />
                 </div>
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
-                  placeholder="Email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <div className="flex -mr-px justify-center w-15 p-4">
-                  <span
-                    className="flex items-center leading-normal bg-white rounded rounded-r-none text-xl px-3 whitespace-no-wrap text-gray-600"
-                    > 
-                    <i><AiFillLock/></i>
-                      </span>
+
+                <div className="w-full mt-4 mb-4">
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="password" placeholder="Senha" aria-label="Password"
+                    value={passwd}
+                    onChange={e => setPasswd(e.target.value)}
+                    />
                 </div>
-                <input
-                  type="password"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-2 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Senha"
-                  value={passwd}
-                  onChange={e => setPasswd(e.target.value)}
-                />
-                <div className="flex -mr-px">
-                  <span
-                    className="flex items-center leading-normal bg-white rounded rounded-l-none border-0 px-3 whitespace-no-wrap text-gray-600"
-                    >
-                    <i className="fas fa-eye-slash"></i>
-                    </span>
+                {signInError && <Alert>E-mail e / ou senha inválidos.</Alert>}
+                <div className="flex items-center justify-between mt-4">
+                    {//<a href="#" className="text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500">Esqueceu a senha?</a>
+}
+
+                    <button className="px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none" type="submit">
+                        Login
+                    </button>
                 </div>
-              </div>
-              <button className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-20"type="submit">
-                Entrar
-              </button>
-            <Link className='font-bold text-center mb-6' to='/'>Voltar</Link>
             </form>
-      </div>
+        </div>
+
+        <div className="flex items-center justify-center py-4 text-center bg-gray-100 dark:bg-gray-700">
+            <span className="text-sm text-gray-600 dark:text-gray-200">Ainda não tem uma conta? </span>
+            
+            <Link to="#" className="mx-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500">Cadastre-se</Link>
+        </div>
+    </div>
+   
     </div>
   )
 }

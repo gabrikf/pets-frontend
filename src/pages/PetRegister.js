@@ -1,88 +1,127 @@
 import React, {useState} from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import {  useHistory } from 'react-router-dom'
 import api from '../services/api'
-
+import Alert from '../components/alert'
+import useAuth from '../hook/useAuth'
+// import Select from 'react-select'
+import {useFormik} from 'formik'
 
 const PetRegister = () => {
-  const [pet_name , setPetName] = useState('')
-  const [pet_age , setPetAge] = useState('')
-  const [animal_type , setAnimalType] = useState('')
-  const [description , setDescription] = useState('')
-  
 
+  const [signInError, setSignInError] = useState(false)
 
   const history = useHistory()
-
-  const handleRegister = async(e) => {
-    e.preventDefault()
-    
-    const data = {
-      pet_name,
-      pet_age,
-      animal_type,
-      description
-    }
-    try {
-      const token = localStorage.getItem('token')
-    const config = {
-      headers: { Authorization: `Bearer ${token}` }
-  };
-      await api.post('/pets', data, config)
-      history.push('/profile')
-      } catch (err) {
-        alert('Erro no cadastro, tente novamente.')
-      }
-  }
+  const { login } = useAuth()
+  const formik = useFormik({
+    initialValues: {
+      pet_name: '',
+      pet_age: '',
+      animal_type: '',
+      breed: '',
+      description: ''
+    },
+    onSubmit: async values => {
+      try {
+     
+        const config = {
+          headers: { Authorization: `Bearer ${login.id}` }
+      };
+          await api.post('/pets', values, config)
+          history.push('/profile')
+          } catch (err) {
+            setSignInError(true)
+          }
+    },
+  });
+  
   return (
-    <div className="bg-blue-200  flex md:mx-80 md:my-40 md:border-4 md:rounded-md md:shadow">
-      <div className=" flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
-        <h1 className="font-bold text-2xl my-10 text-white"> Cadastre seu Pet </h1>
-    <form onSubmit={handleRegister}  className="mt-2 flex flex-col lg:w-1/2 w-8/12">
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
-                  placeholder="Nome do Pet:"
-                  value={pet_name}
-                  onChange={e => setPetName(e.target.value)}
-                />
+    
+    <div className=' '>
+          <section className="my-36 2xl:my-52 max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+              <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
+
+              <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Olá amigo, seja bem-vindo!</h3>
+
+              <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Estamos felizes em te-lo aqui, preencha seu cadastro.</p>
+      
+              <form onSubmit={formik.handleSubmit}>
+                  <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                  <div className="w-full mt-0">
+                  <label className="text-gray-700 dark:text-gray-200" for="password">Nome do pet (caso não tenha, deixe o campo vazio)</label>
+                  <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                  type="text" 
+                  name="pet_name"
+                  placeholder="Digite seu nome do pet" 
+                  aria-label="Nome completo"
+                  value={formik.values.pet_name}
+                  onChange={formik.handleChange}
+                  />
               </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Idade do Pet:"
-                  value={pet_age}
-                  onChange={e => setPetAge(e.target.value)}
-                />
+
+              <div className="w-full mt- mb-4">
+                  <label className="text-gray-700 dark:text-gray-200" for="password">Idade do pet (ao final escreva "anos ou "meses")</label>
+                  <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                  type="text" 
+                  name="pet_age"
+                  placeholder="Digite a idade do pet." 
+                  aria-label="idade"
+                  value={formik.values.pet_age}
+                  onChange={formik.handleChange}
+                  />
               </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Tipo (Cachorro, Gato...) :"
-                  value={animal_type }
-                  onChange={e => setAnimalType(e.target.value)}
-                />
+
+              <div className="w-full mt-0 mb-4">
+              <label className="text-gray-700 dark:text-gray-200" for="text">Tipo: (cachorro gato ou fuga de animal)</label>
+                <select 
+                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                name='animal_type'
+                onChange={formik.handleChange}
+                value={formik.values.animal_type}
+                >
+                  <option value='' hidden>Selecione uma opção...</option>
+                  <option value='Cachorro'>Cachorro</option>
+                  <option value='Gato'>Gato</option>
+                  <option value='Perdido'>Animal perdido</option>
+                </select>
+                </div>
+          
+              <div className="w-full mt-0 mb-4">
+                  <label className="text-gray-700 dark:text-gray-200" for="password">Descrição da raça (se for definida)</label>
+                  <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                  type="text" 
+                  placeholder="Digite a raça do seu pet" 
+                  name="breed"
+                  aria-label="cidade"
+                  value={formik.values.breed}
+                  onChange={formik.handleChange}
+                  />
               </div>
-              <label className='text-xl font-bold text-gray-100'>Descrição:</label>
-              <div className="h-40 flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <textarea 
-                  type="text"
-                  className=" resize-none flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                />
+              <div className="w-full mt-0 mb-4">
+                  <label className="text-gray-700 dark:text-gray-200" for="password">Descrição breve (max: 30 caracteres)</label>
+                  <textarea className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                  type="text" 
+                  maxlength="30"
+                  placeholder="Digite a descrição do pet" 
+                  name="description"
+                  aria-label="cidade"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  />
               </div>
-              
-              <button className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-10"type="submit">
-                Cadastrar
-              </button>
-              <Link className='font-bold text-center mb-6' to='/profile'>Voltar</Link>
-            </form>
-      </div>
-    </div>
-  )
+
+             
+             
+              {signInError && <Alert>Erro no cadastro, verifique o que você pode ter errado.</Alert>}
+          </div>
+
+          <div className="flex justify-end mt-6">
+              <button type='submit' className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Cadastrar</button>
+          </div>
+      </form>
+  </section>     
+ 
+  </div>
+)
 }
 
 export default PetRegister

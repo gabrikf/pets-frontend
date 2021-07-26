@@ -1,10 +1,21 @@
 import React from 'react'
 import Routes from './routes'
 
+import { AuthContextProvider } from './context/AuthContext'
+
+
 
 function App() {
+
   return (
-    <Routes />
+   
+    <div className='bg-blue-50 dark:bg-gray-700 '>
+      <AuthContextProvider>
+     
+          <Routes />  
+    
+        </AuthContextProvider>
+    </div>
   );
 }
 

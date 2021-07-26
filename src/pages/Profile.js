@@ -1,35 +1,48 @@
 import React, {useState, useEffect} from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { FaLinkedin, FaInstagram, FaLink } from 'react-icons/fa'
+import { useHistory, Link } from 'react-router-dom'
 import { FiTrash2 } from 'react-icons/fi'
-import { AiFillGithub } from 'react-icons/ai'
+import { FaWhatsapp } from 'react-icons/fa'
+import { HiOutlineLocationMarker } from 'react-icons/hi'
+import { GiCat, GiSittingDog } from 'react-icons/gi'
+import { AiOutlineMail } from 'react-icons/ai'
 import api from '../services/api'
+import heroImg from '../assets/prof.png'
+import useAuth from '../hook/useAuth'
 
 
 
 
 const Profile = () => {
+  const {login } = useAuth()
   const [incidents, setIncidents] = useState([])
   const [photo, setPhoto] = useState('')
 
-  
-
   const history = useHistory()
-  const token = localStorage.getItem('token')
-  if (!localStorage.getItem('token')){
-    history.push('/login')
-  }
- 
+
   useEffect(() => {
+    if (!login ){
+      history.push('/')
+      return
+    }
+
     api.get('/pets', {
       headers: {
-        Authorization: `bearer ${token}`,
+        Authorization: `Bearer ${login.id}`,
       }
       
     }).then(response => {
+      if (response.data.error){
+        
+        localStorage.removeItem('token')
+        history.push('/login')
+      }
+
+      
       setIncidents(response.data)
+  
+      
     })
-  }, [])
+  }, [login, history , incidents])
 
   const handleUpload = async(id) => {
    
@@ -37,133 +50,145 @@ const Profile = () => {
     formData.append('image', photo)
 
     try {
-      const token = localStorage.getItem('token')
+      
     const config = {
       
       headers: { 
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}` 
+        Authorization: `bearer ${login.id}` 
       }
   };
       await api.post(`pets/${id}/upload`, formData, config)
-      .then(function (response) {
-            console.log(formData)
-               console.log(response);
-             });
+   
       } catch (err) {
         alert('Erro no cadastro, tente novamente.')
       }
   }
-  
- 
 
-  // const handleUpload = async(id) => {
-    
-
-  //   const config = {
-  //     'Content-Type': 'multipart/form-data',
-  //       // headers : {Authorization: `bearer ${token}`}
-  // }
-  //   const formData  = new FormData()
-  //   formData.append('image', data)
-    
-  //   try {
-  //     await api.post(`/pets/${id}/upload`, formData, config
-  //     ).then(function (response) {
-  //       console.log(formData)
-  //       console.log(response);
-  //     });
-  //   } catch (err) {
-  //     alert('Erro ao deletar caso, tente novamente.')
-  //   }
-  // } 
   const handleDeleteIncident = async(id) => {
-  
     
     try {
       await api.delete(`/pets/${id}`, {
         headers: {
-          Authorization: `bearer ${token}`,
+          Authorization: `bearer ${login.id}`,
         }
       })
       
       setIncidents(incidents.filter(incident => incident.id_pet !== id))
-      history.push('/login')
     } catch (err) {
       alert('Erro ao deletar caso, tente novamente.')
     }
   } 
-  const handleLogOut = () => {
-    localStorage.clear()
-    history.push('/')
-  }
+
   return (
     <div>
-      
-      <div className='bg-blue-200 text-right p-4 mb-10 shadow h-16'>
-      <Link className='hover:text-white font-bold m-10 'to='/petRegister'>Cadastrar Pet</Link>
-      <a className='hover:text-white font-bold m-10' onClick={() => handleLogOut()}>Sair</a>
-      </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
-    {incidents.map(incident => (
-      <div key={incident.id} className="mx-2 mb-10 max-w-sm bg-blue-200 border-2 border-gray-300 p-6 rounded-md tracking-wide shadow-lg">
-          <div id="header" className="flex items-center mb-4">
-             
-          { incident.images && 
-          incident.images.url && 
-          <img alt="avatar" className="w-20 rounded-full border-2 border-gray-300" src={incident.images.url} /> }
-          
-          
-          
-         
+         {!incidents[0] && 
+         <div className="container mt-10 px-6 py-10 mx-auto">
+            <div className="w-full  text-white bg-indigo-600 ">
+            <div className="container flex items-center justify-between px-6 py-4 mx-auto">
+                <div className="flex">
+                    <svg viewBox="0 0 40 40" className="w-6 h-6 fill-current">
+                        <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
+                    </svg>
+    
+                    <p className="mx-3">Você ainda não possuí pets cadastrados!</p>
+                </div>
+    
+                <button className="p-1 transition-colors duration-200 transform rounded-md hover:bg-opacity-25 hover:bg-gray-600 focus:outline-none">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeinejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            </div>
      
-            <div id="header-text" className="leading-5 ml-6 sm">
-                <h4 id="name" className="text-xl font-semibold">{incident.name}</h4>
-                <h5 id="job" className="font-semibold text-blue-600">{incident.city}</h5>
-                <h5 id="job" className="font-semibold text-blue-600">{incident.neighborhood} </h5>
-            </div>
+
+        
+      <div className="mt-24 items-center lg:flex lg:mb-24">
+          <div className="w-full  lg:w-1/2">
+              <div className="lg:max-w-lg">
+                  <h1 className="text-2xl font-semibold text-gray-800 uppercase dark:text-white lg:text-3xl">cadastre seu pet para adoção ou informe uma fuga!</h1>
+                  <p className="mt-2 mb-6 text-gray-600 dark:text-gray-400">Aqui você pode cadastrar seu pet para adoção, podendo deixar alguma família  mais completa! Caso seu pet teha fugido você pode informar aqui no mesmo formulário, basta selecionar a opção fuga no campo do tipo de animal</p>
+                  <Link to="/petregister" className="w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Cadastre</Link>
+              </div>
           </div>
-          { !incident.images &&     
-          
-          <form 
          
-          >
-            <input
-            
-            type='file' 
-            value={photo}
-            onChange={e => setPhoto(e.target.value)}
-            />
-          <button onClick={() => handleUpload(incident.id_pet)} className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-10"type="button">
-                Adicionar foto
-              </button>
-          </form> }
-          <div id="quote">
-            <p><strong>Nome do pet: </strong>{incident.pet_name}</p>
-            <p><strong>Tempo de vida do pet: </strong>{incident.pet_age}</p>
-            <p><strong>Tipo de pet: </strong>{incident.animal_type}</p>
-            <p className='h-40'><strong>Descrição: </strong>{incident.description}</p>
-            <p className='text-center'><strong>Deletar: </strong></p>
-            <div className="flex justify-center">
-            <button type="button" onClick={() => handleDeleteIncident(incident.id_pet)}>
-              <FiTrash2 size={20} color="#a8a8b3"/>
-            </button>
+                      <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+                          <img className="w-full h-full lg:max-w-md" src={heroImg} alt="Catalogue-pana.svg"/>
+                      </div>
+                  </div>
+              </div>
+        
+        
+       
+        }
+    
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
+     
+      {incidents.map(incident => (
+      <div key={incident.id_pet} className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        { incident.images && 
+          incident.images.url && 
+            <img className="object-cover object-center w-full h-80" src={incident.images.url} alt="avatar"/>}
+            { !incident.images &&     
+
+              <form className="object-cover object-center w-full h-56 text-center pt-10 dark:text-white" >
+                <input               
+                type='file' 
+                onChange={(e) => setPhoto(e.target.files[0])}
+                />
+                {photo &&
+              <button onClick={() => handleUpload(incident.id_pet)} className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-10"type="button">
+                    Adicionar foto
+                  </button>
+                }
+              </form> }
+            <div className="flex items-center px-6 py-3 bg-gray-900">
+            {incident.animal_type === 'Cachorro' ? <GiSittingDog className='text-white'/> : <GiCat className='text-white'/>}
+                       <h1 className="mx-3 text-lg font-semibold text-white">{incident.pet_name}</h1>
             </div>
-          </div>
-      </div>
-      ))}
-    </div>
-        <div className='bg-blue-200 text-center p-8 shadow h-20'>
-          <div className='container mx-auto text-center font-bold'>     
-            <div className='grid grid-cols-5 justify-items-stretch'>
-              <a   className='text-blue-600 hover:text-black justify-self-center' href='https://www.linkedin.com/in/gabrielkf/'><FaLinkedin /></a>
-              <a className='text-red-600 hover:text-black justify-self-center' href='https://www.instagram.com/gabrikf/'><FaInstagram /></a>
-              <p className='text-xs'>Projeto desenvolvido por Gabriel Koch Fodi</p>
-              <a className='text-purple-600 hover:text-black justify-self-center' href='https://github.com/gabrikf'><AiFillGithub /></a>
-              <a className='text-gray-600 hover:text-black justify-self-center' href='https://gabrikf-resume.vercel.app/'><FaLink /></a>
+
+            <div className="px-6 py-4">
+                
+
+               
+                <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{incident.name}</h1> 
+                <p className="py-2 text-gray-700 dark:text-gray-400"><strong className='text-black dark:text-white'>Idade do pet: </strong>{incident.pet_age}</p> 
+                <p className="h-24 py-2 text-gray-700 dark:text-gray-400"><strong className='text-black dark:text-white'>Descrição do pet: </strong> <p>{incident.description}</p></p>
+  
+
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                
+                   <Link className='cursor-pointer'to={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}><FaWhatsapp  className=' text-xl' /></Link>
+                   <Link className='cursor-pointer'to={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}><h1 className="px-2 text-sm">({incident.whatsapp.slice(0,2)}) {incident.whatsapp.slice(2,7)}-{incident.whatsapp.slice(7)}</h1></Link>
+                </div>
+
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                    <HiOutlineLocationMarker  className=' text-xl' />
+
+                    <h1 className="px-2 text-sm">{incident.city}, {incident.neighborhood}</h1>
+                </div>
+
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <AiOutlineMail className=' text-xl' />
+                    
+                    <h1 className="px-2 text-sm">{incident.email}</h1>
+                    
+                  
+                </div>
+                <div className="flex justify-center mt-4">
+                 
+                  <p><button className='cursor-pointer'type="button" onClick={() => handleDeleteIncident(incident.id_pet)}>
+                    <FiTrash2 size={20} color="#a8a8b3"/>
+                  </button></p>
+                  </div>
             </div>
-          </div>
         </div>
+         
+      ))}
+      </div>
+   
+     
     </div>
   )}
 

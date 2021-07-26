@@ -1,114 +1,204 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import Alert from '../components/alert'
 import api from '../services/api'
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
+
+const userSchema = Yup.object().shape({
+  name: Yup.string()
+              .min(3, 'Por favor, informe pelo menos um nome com 3 caracteres.')
+              .required('Por favor, informe um nome.'),
+  email: Yup.string()
+              .email('Por favor, digite um e-mail válido')
+              .required('Por favor, informe um e-mail.')
+              .test('is-unique', 'Por favor, utileze outro email. Este ja está em uso', async(value) => {
+                const ret = await api.get(`/users/${value}`) 
+                if(!ret.data[0]){
+                  return true
+                }
+                return false
+            }),
+  whatsapp: Yup.string()
+              .min(11, 'Por favor, informe no formato xx xxxxx xxxx, no total de 11 dígitos.')
+              .required('Por favor, informe o número celular'),
+  city: Yup.string()
+              .min(3, 'Por favor, informe pelo menos 3 caracteres.')
+              .required('Por favor, informe um slug da marca.'),
+  state: Yup.string()
+              .min(2, 'Por favor, informe pelo menos um estado com 3 caracteres.')
+              .required('Por favor, informe um estado.'),
+  neighborhood: Yup.string()
+              .min(5, 'Por favor, informe pelo menos um nome com 5 caracteres.')
+              .required('Por favor, informe um bairro.'),      
+  passwd: Yup.string()
+              .min(8, 'Por favor, informe uma senha com pelo menos 8 caracteres.')
+              .required('Por favor, informe uma senha.'),
+  confirmPasswd: Yup.string()
+              .required('Por favor, confirme a senha')
+              .oneOf([Yup.ref('passwd'), null],'As senhas devem ser iguais.'),   
+               
+})
 
 const Users = () => {
-  const [name , setName] = useState('')
-  const [passwd , setPasswd] = useState('')
-  const [email , setEmail] = useState('')
-  const [whatsapp , setWhatsapp] = useState('')
-  const [city , setCity] = useState('')
-  const [state , setState] = useState('')
-  const [neighborhood , setNeighborhood] = useState('')
-
+  const [signInError, setSignInError] = useState(false)
   const history = useHistory()
 
-  const handleRegister = async(e) => {
-    e.preventDefault()
+ 
+    const formik = useFormik({
+      initialValues: {
+        name: '',
+        passwd: '',
+        confirmPasswd: '',
+        email: '',
+        whatsapp: '',
+        city: '',
+        state: '',
+        neighborhood: ''
+      },    
+      validationSchema: userSchema,
+      onSubmit: async values => {
+        try {  
+            const response = await api.post('users', values)
+            alert(`Seu ID de acesso: ${response.data.data.email}`)
+            history.push('/login')
+          
+          } catch (err) {
+            setSignInError(true)
+          }
+      },
+      })
+    
+      return (
+      <div className=' '>
+            <section className="my-36 2xl:my-52 max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+                <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
 
-    const data = {
-      name,
-      passwd,
-      email,
-      whatsapp,
-      city,
-      state,
-      neighborhood
-    }
-    try {
-      const response = await api.post('users', data)
-      alert(`Seu ID de acesso: ${response.data.data.email}`)
-      history.push('/')
-      } catch (err) {
-        alert('Erro no cadastro, tente novamente.')
-      }
-  }
-  return (
-    <div className="bg-blue-200 md:m  flex md:mx-80 md:my-40 md:border-4 md:rounded-md md:shadow">
-      <div className="flex-col flex ml-auto mr-auto items-center w-full lg:w-2/3 md:w-3/5">
-        <h1 className="font-bold text-2xl my-10 text-white"> Cadastre-se </h1>
-    <form  onSubmit={handleRegister} className="mt-2 flex flex-col lg:w-1/2 w-8/12">
-              <div className="flex flex-wrap items-stretch w-full mb-4 relative h-15 bg-white items-center rounded mb-6 pr-10">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 border-grey-light rounded rounded-l-none px-3 self-center relative  font-roboto text-xl outline-none"
-                  placeholder="Nome:"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="password"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Senha:"
-                  value={passwd}
-                  onChange={e => setPasswd(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="email"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Email:"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="number"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Fone/Whatsapp:"
-                  value={whatsapp}
-                  onChange={e => setWhatsapp(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Cidade:"
-                  value={city}
-                  onChange={e => setCity(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Estado:"
-                  value={state}
-                  onChange={e => setState(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap items-stretch w-full relative h-15 bg-white items-center rounded mb-4">
-                <input
-                  type="text"
-                  className="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border-0 h-10 px-3 relative self-center font-roboto text-xl outline-none"
-                  placeholder="Bairro:"
-                  value={neighborhood}
-                  onChange={e => setNeighborhood(e.target.value)}
-                />
-              </div>
-              <button className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-10"type="submit">
-                Cadastrar
-              </button>
-              <Link className='font-bold text-center mb-6' to='/'>Voltar</Link>
-            </form>
-      </div>
+                <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Olá amigo, seja bem-vindo!</h3>
+
+                <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Estamos felizes em te-lo aqui, preencha seu cadastro.</p>
+        
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="grid grid-cols-1 gap-6 mt-2 sm:grid-cols-2">
+                    <div className="w-full mt-0">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Nome completo</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="text" 
+                    name='name'
+                    placeholder="Digite seu nome completo" 
+                    aria-label="Nome completo"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    
+                    />
+                    {formik.errors.name && <i className='text-red-400'>{formik.errors.name}</i>}
+                </div>       
+   
+                <div className="w-full mt-0">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">E-mail</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="email" 
+                    name='email'
+                    placeholder="Digite seu e-mail" 
+                    aria-label="E-mail"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    />
+                    {formik.errors.email && <i className='text-red-400'>{formik.errors.email}</i>}
+                 
+                </div>
+
+                <div className="w-full mt-0">
+                    <label class="text-gray-700 dark:text-gray-200" for="text">WhatsApp</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="text"                     
+                    name='whatsapp'
+                    placeholder="Digite seu whatsApp" 
+                    aria-label="whastsApp"
+                    value={formik.values.whatsapp}
+                    onChange={formik.handleChange}
+                    />
+                    {formik.errors.whatsapp && <i className='text-red-400'>{formik.errors.whatsapp}</i>}
+                </div>
+
+                <div className="w-full mt-0 ">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Cidade</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="text"
+                    name='city'
+                    placeholder="Digite sua cidade" 
+                    aria-label="cidade"
+                    value={formik.values.city}
+                    onChange={formik.handleChange}
+                    />
+                    {formik.errors.city && <i className='text-red-400'>{formik.errors.city}</i>}
+                </div>
+
+                <div className="w-full mt-0 ">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Estado</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="text" 
+                    name ='state'
+                    placeholder="Digite seu estado" 
+                    aria-label="estado"
+                    value={formik.values.state}
+                    onChange={formik.handleChange}
+                    />
+                  {formik.errors.state && <i className='text-red-400'>{formik.errors.state}</i>}
+                </div>
+                <div className="w-full mt-0 ">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Bairro</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="text" 
+                    name='neighborhood'
+                    placeholder="Digite seu bairro" 
+                    aria-label="Bairro"
+                    value={formik.values.neighborhood}
+                    onChange={formik.handleChange}
+                    />
+                    {formik.errors.neighborhood && <i className='text-red-400'>{formik.errors.neighborhood}</i>}
+                </div>
+
+                <div className="w-full mt-0 ">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Senha</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    type="password" 
+                    name='passwd'
+                    placeholder="Digite sua senha" 
+                    aria-label="senha"
+                    value={formik.values.passwd}
+                    onChange={formik.handleChange}
+                    />
+                    {formik.errors.passwd && <i className='text-red-400'>{formik.errors.passwd}</i>}
+                </div>
+
+                <div className="w-full mt-0 ">
+                    <label class="text-gray-700 dark:text-gray-200" for="password">Confirma senha:</label>
+                    <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                    name='confirmPasswd'
+                    type="password" 
+                    placeholder="Digite novamente sua senha"
+                    aria-label="Password"
+                    value={formik.values.confirmPasswd}
+                    onChange={formik.handleChange}
+                    
+                    />
+                    {formik.errors.confirmPasswd && <i className='text-red-400'>{formik.errors.confirmPasswd}</i>}
+                </div>
+                
+                {signInError && <Alert>Erro no cadastro, verifique o que você pode ter errado.</Alert>}
+            </div>
+
+            <div className="flex justify-end mt-6">
+                <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Cadastrar</button>
+            </div>
+        </form>
+    </section>
+       
+   
     </div>
   )
+    
 }
 
 export default Users
