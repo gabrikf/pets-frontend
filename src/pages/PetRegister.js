@@ -3,8 +3,24 @@ import {  useHistory } from 'react-router-dom'
 import api from '../services/api'
 import Alert from '../components/alert'
 import useAuth from '../hook/useAuth'
-// import Select from 'react-select'
-import {useFormik} from 'formik'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
+const petSchema = Yup.object().shape({
+  pet_name: Yup.string()
+                .min(3, 'por favor digite pelo menos 3 caracteres')
+                .max(15, 'máximo 15 caracteres')
+                .required('Por favor informe o nome.'),
+  pet_age: Yup.string()
+              .required('Por favor informe a idade do animal.')
+              .max(15, 'máximo 15 caracteres'),
+  animal_type: Yup.string()
+                  .required('Por favor informe o tipo de animal'),
+  breed: Yup.string()
+             .max(15, 'máximo 15 caracteres'),
+  description: Yup.string()
+                  .max(30, 'Máximo de 30 caracteres'),
+})
 
 const PetRegister = () => {
 
@@ -20,6 +36,7 @@ const PetRegister = () => {
       breed: '',
       description: ''
     },
+    validationSchema: petSchema,
     onSubmit: async values => {
       try {
      
@@ -56,6 +73,7 @@ const PetRegister = () => {
                   value={formik.values.pet_name}
                   onChange={formik.handleChange}
                   />
+                    {formik.errors.pet_name && formik.touched.pet_name && <i className='text-red-400'>{formik.errors.pet_name}</i>}
               </div>
 
               <div className="w-full mt- mb-4">
@@ -68,6 +86,7 @@ const PetRegister = () => {
                   value={formik.values.pet_age}
                   onChange={formik.handleChange}
                   />
+                    {formik.errors.pet_age && formik.touched.pet_age && <i className='text-red-400'>{formik.errors.pet_age}</i>}
               </div>
 
               <div className="w-full mt-0 mb-4">
@@ -83,6 +102,7 @@ const PetRegister = () => {
                   <option value='Gato'>Gato</option>
                   <option value='Perdido'>Animal perdido</option>
                 </select>
+                {formik.errors.animal_type && formik.touched.animal_type && <i className='text-red-400'>{formik.errors.animal_type}</i>}
                 </div>
           
               <div className="w-full mt-0 mb-4">
@@ -95,6 +115,7 @@ const PetRegister = () => {
                   value={formik.values.breed}
                   onChange={formik.handleChange}
                   />
+                  {formik.errors.breed && formik.touched.breed && <i className='text-red-400'>{formik.errors.breed}</i>}
               </div>
               <div className="w-full mt-0 mb-4">
                   <label className="text-gray-700 dark:text-gray-200" for="password">Descrição breve (max: 30 caracteres)</label>
@@ -107,10 +128,8 @@ const PetRegister = () => {
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   />
-              </div>
-
-             
-             
+                    {formik.errors.description && formik.touched.description && <i className='text-red-400'>{formik.errors.description}</i>}
+              </div>  
               {signInError && <Alert>Erro no cadastro, verifique o que você pode ter errado.</Alert>}
           </div>
 

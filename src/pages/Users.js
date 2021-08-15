@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 const userSchema = Yup.object().shape({
   name: Yup.string()
               .min(3, 'Por favor, informe pelo menos um nome com 3 caracteres.')
+              .max(20, 'máximo 15 caracteres')
               .required('Por favor, informe um nome.'),
   email: Yup.string()
               .email('Por favor, digite um e-mail válido')
@@ -24,12 +25,15 @@ const userSchema = Yup.object().shape({
               .required('Por favor, informe o número celular'),
   city: Yup.string()
               .min(3, 'Por favor, informe pelo menos 3 caracteres.')
+              .max(20, 'máximo 20 caracteres')
               .required('Por favor, informe um slug da marca.'),
   state: Yup.string()
               .min(2, 'Por favor, informe pelo menos um estado com 3 caracteres.')
+              .max(3, 'máximo 3 caracteres')
               .required('Por favor, informe um estado.'),
   neighborhood: Yup.string()
               .min(5, 'Por favor, informe pelo menos um nome com 5 caracteres.')
+              .max(20, 'máximo 20 caracteres')
               .required('Por favor, informe um bairro.'),      
   passwd: Yup.string()
               .min(8, 'Por favor, informe uma senha com pelo menos 8 caracteres.')
@@ -91,7 +95,7 @@ const Users = () => {
                     onChange={formik.handleChange}
                     
                     />
-                    {formik.errors.name && <i className='text-red-400'>{formik.errors.name}</i>}
+                    {formik.errors.name && formik.touched.name && <i className='text-red-400'>{formik.errors.name}</i>}
                 </div>       
    
                 <div className="w-full mt-0">
@@ -104,7 +108,7 @@ const Users = () => {
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     />
-                    {formik.errors.email && <i className='text-red-400'>{formik.errors.email}</i>}
+                    {formik.errors.email && formik.touched.email && <i className='text-red-400'>{formik.errors.email}</i>}
                  
                 </div>
 
@@ -118,7 +122,7 @@ const Users = () => {
                     value={formik.values.whatsapp}
                     onChange={formik.handleChange}
                     />
-                    {formik.errors.whatsapp && <i className='text-red-400'>{formik.errors.whatsapp}</i>}
+                    {formik.errors.whatsapp && formik.touched.whatsapp && <i className='text-red-400'>{formik.errors.whatsapp}</i>}
                 </div>
 
                 <div className="w-full mt-0 ">
@@ -131,7 +135,7 @@ const Users = () => {
                     value={formik.values.city}
                     onChange={formik.handleChange}
                     />
-                    {formik.errors.city && <i className='text-red-400'>{formik.errors.city}</i>}
+                    {formik.errors.city && formik.touched.city && <i className='text-red-400'>{formik.errors.city}</i>}
                 </div>
 
                 <div className="w-full mt-0 ">
@@ -144,7 +148,7 @@ const Users = () => {
                     value={formik.values.state}
                     onChange={formik.handleChange}
                     />
-                  {formik.errors.state && <i className='text-red-400'>{formik.errors.state}</i>}
+                  {formik.errors.state && formik.touched.state && <i className='text-red-400'>{formik.errors.state}</i>}
                 </div>
                 <div className="w-full mt-0 ">
                     <label class="text-gray-700 dark:text-gray-200" for="password">Bairro</label>
@@ -169,7 +173,7 @@ const Users = () => {
                     value={formik.values.passwd}
                     onChange={formik.handleChange}
                     />
-                    {formik.errors.passwd && <i className='text-red-400'>{formik.errors.passwd}</i>}
+                    {formik.errors.passwd && formik.touched.passwd && <i className='text-red-400'>{formik.errors.passwd}</i>}
                 </div>
 
                 <div className="w-full mt-0 ">

@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import heroImg from '../assets/hero-img.png'
 import catImg from '../assets/gatocao.jpeg'
 import dogImg from '../assets/caogato.png'
-
-import { Link } from 'react-router-dom'
-
-
+import useAuth from '../hook/useAuth'
+import { Link, useHistory } from 'react-router-dom'
 
 
 const Index = () => {
+  const {login} = useAuth()
+  const history = useHistory()
 
-  
+  useEffect(() => {
+    if(login){
+      history.push('/profile')
+    }
+  }, [login, history])
+   
 
   return (
     <div>

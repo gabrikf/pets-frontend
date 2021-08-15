@@ -88,10 +88,7 @@ const Pets = () => {
     }
    
   }, [page, filter])
-  const handlePets = (value) => {
 
-    localStorage.setItem('filter', value)
-   }
   return (
     <div>
           <div className=" p-20 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">

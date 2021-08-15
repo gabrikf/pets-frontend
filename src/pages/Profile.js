@@ -42,7 +42,7 @@ const Profile = () => {
   
       
     })
-  }, [login, history , incidents])
+  }, [login, history , incidents, photo])
 
   const handleUpload = async(id) => {
    
@@ -58,6 +58,7 @@ const Profile = () => {
         Authorization: `bearer ${login.id}` 
       }
   };
+    
       await api.post(`pets/${id}/upload`, formData, config)
    
       } catch (err) {
@@ -127,22 +128,24 @@ const Profile = () => {
      
       {incidents.map(incident => (
       <div key={incident.id_pet} className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        { incident.images && 
-          incident.images.url && 
-            <img className="object-cover object-center w-full h-80" src={incident.images.url} alt="avatar"/>}
-            { !incident.images &&     
-
-              <form className="object-cover object-center w-full h-56 text-center pt-10 dark:text-white" >
+        { 
+    
+           
+             !incident.images ?    
+              (<form className="object-cover object-center w-full h-56 text-center pt-10 dark:text-white" >
                 <input               
                 type='file' 
                 onChange={(e) => setPhoto(e.target.files[0])}
                 />
+                
                 {photo &&
               <button onClick={() => handleUpload(incident.id_pet)} className="bg-blue-400 py-4 text-center px-17 md:px-12 md:py-4 text-white rounded leading-tight text-xl md:text-base font-sans mt-4 mb-10"type="button">
                     Adicionar foto
                   </button>
-                }
-              </form> }
+              }
+                  </form> )
+                :  <img className="object-cover object-center w-full h-80" src={incident.images.url} alt="avatar"/>}
+              
             <div className="flex items-center px-6 py-3 bg-gray-900">
             {incident.animal_type === 'Cachorro' ? <GiSittingDog className='text-white'/> : <GiCat className='text-white'/>}
                        <h1 className="mx-3 text-lg font-semibold text-white">{incident.pet_name}</h1>
