@@ -13,7 +13,7 @@ import useAuth from '../hook/useAuth'
 
 
 const Profile = () => {
-  const {login } = useAuth()
+  const {login, handleLogout } = useAuth()
   const [incidents, setIncidents] = useState([])
   const [photo, setPhoto] = useState('')
 
@@ -25,6 +25,10 @@ const Profile = () => {
       return
     }
 
+    if(login.expiresIn > Date.now() * 1000){
+      handleLogout()
+      history.push('/')
+    }
     api.get('/pets', {
       headers: {
         Authorization: `Bearer ${login.id}`,
@@ -42,7 +46,7 @@ const Profile = () => {
   
       
     })
-  }, [login, history , incidents, photo])
+  }, [history, login, handleLogout])
 
   const handleUpload = async(id) => {
    
@@ -59,17 +63,41 @@ const Profile = () => {
       }
   };
     
-      await api.post(`pets/${id}/upload`, formData, config)
+      const response = await api.post(`pets/${id}/upload`, formData, config)
+      console.log(response)
+      api.get('/pets', {
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        }
+        
+      }).then(response => {
+        if (response.data.error){
+          
+          localStorage.removeItem('token')
+          history.push('/login')
+        }
+
+        setIncidents(response.data)
+ 
+      })
+    
    
       } catch (err) {
+        console.log(err)
         alert('Erro no cadastro, tente novamente.')
       }
   }
 
-  const handleDeleteIncident = async(id) => {
-    
+  const handleDeleteIncident = async(id, hasImg) => {
+    let url 
+    if(hasImg){
+      url = `/pets/image/${id}`
+    }else{
+      url = `/pets/${id}`
+    }
+    console.log(url)
     try {
-      await api.delete(`/pets/${id}`, {
+      await api.delete(url, {
         headers: {
           Authorization: `bearer ${login.id}`,
         }
@@ -181,7 +209,7 @@ const Profile = () => {
                 </div>
                 <div className="flex justify-center mt-4">
                  
-                  <p><button className='cursor-pointer'type="button" onClick={() => handleDeleteIncident(incident.id_pet)}>
+                  <p><button className='cursor-pointer'type="button" onClick={() => handleDeleteIncident(incident.id_pet, (incident.images ? true : false))}>
                     <FiTrash2 size={20} color="#a8a8b3"/>
                   </button></p>
                   </div>

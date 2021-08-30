@@ -60,6 +60,9 @@ const Pets = () => {
     if(filter) {
       api.get(`/${filter}/${page}`)
       .then(response => {
+        if(response.error){
+          console.log(response.error)
+        }
         console.log(response.data.data)
         const next = response.data.hasNext
         response.data = response.data.data.map(pet => {
@@ -74,6 +77,9 @@ const Pets = () => {
     } else {
       api.get(`/${page}`)
       .then(response => {
+        if(response.error){
+          console.log(response.error)
+        }
         console.log(response.data.data)
         const next = response.data.hasNext
         response.data = response.data.data.map(pet => {
@@ -81,12 +87,12 @@ const Pets = () => {
           return pet
           
         })
-     
+        
         setHasNext(next)
         setIncidents(response.data)
       })
     }
-   
+   console.log('opa')
   }, [page, filter])
 
   return (

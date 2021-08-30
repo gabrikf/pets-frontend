@@ -7,7 +7,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { FaUserAlt, FaPaw } from 'react-icons/fa'
 import { AiOutlineFullscreenExit, AiOutlineMenu} from 'react-icons/ai'
 import useAuth from '../hook/useAuth'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -51,12 +51,12 @@ const setCurrentValue = (name) => {
   setCurrent(name)
   deleteFilter()
 }
-
+const history = useHistory()
 const [ colorTheme, setTheme ] = useDarkmode();
 const handleLogOut = async() => {
   
   await handleLogout()
-
+  history.push('/')
   
 }
 

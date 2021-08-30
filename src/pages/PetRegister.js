@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import {  useHistory } from 'react-router-dom'
 import api from '../services/api'
 import Alert from '../components/alert'
@@ -23,11 +23,21 @@ const petSchema = Yup.object().shape({
 })
 
 const PetRegister = () => {
-
-  const [signInError, setSignInError] = useState(false)
-
   const history = useHistory()
-  const { login } = useAuth()
+  const { login, handleLogout } = useAuth()
+  const [signInError, setSignInError] = useState(false)
+  useEffect(() => {
+    if (!login ){
+      history.push('/')
+      return
+    }
+
+    if(login.expiresIn > Date.now() * 1000){
+      handleLogout()
+      history.push('/')
+    }
+  },[handleLogout, history, login])
+
   const formik = useFormik({
     initialValues: {
       pet_name: '',

@@ -1,28 +1,36 @@
 import React, { createContext, useEffect, useState  } from "react"
-import { useHistory } from 'react-router-dom';
+import api from "../services/api"
 
 export const AuthContext = createContext({})
 
 
 export function AuthContextProvider(props) {
-  const history = useHistory()
+
 
   const [login, setLogIn] = useState()
   useEffect(() => {
-  
-    const storegedtoken = localStorage.getItem('token')
-    console.log(storegedtoken)
-  
-    
-    if(storegedtoken ) {
-      try{
-        handleSetLogin(storegedtoken)
-      }catch(err){
-        localStorage.removeItem('token')
-      }
+    if(!login){
       
+      const storegedtoken = localStorage.getItem('token')
+      if(storegedtoken) {
+        api.get('pets/auth', { headers: {
+          Authorization: `Bearer ${storegedtoken}`,
+        }}).then(response => {
+          if(response.data.messege === 'needs auth'){
+            setLogIn(undefined)
+            localStorage.removeItem('token')
+          }
+        })
+      
+        try{
+          handleSetLogin(storegedtoken)
+        }catch(err){
+          localStorage.removeItem('token')
+        }
+        
+      }
     }
-  },[])
+  },[login])
 
     
     const handleSetLogin = (token) => {
@@ -31,10 +39,13 @@ export function AuthContextProvider(props) {
       payload = JSON.parse(payload)
       const userId = payload.id[0].id
       const userEmail = payload.email
+      const expiresIn = payload.exp
+
       setLogIn({
         id: token,
         userId,
-        userEmail
+        userEmail,
+        expiresIn
       })
       localStorage.setItem('token', token)
     }
@@ -43,7 +54,6 @@ export function AuthContextProvider(props) {
     const handleLogout = () =>{
       setLogIn(undefined)
       localStorage.removeItem('token')
-      history.push('/')
     }
   
     return (
