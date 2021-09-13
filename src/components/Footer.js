@@ -9,7 +9,7 @@ const Footer = () => {
             <div className='grid grid-cols-5 justify-items-stretch'>
               <a   className='text-blue-600 hover:text-black justify-self-center' href='https://www.linkedin.com/in/gabrielkf/'><FaLinkedin /></a>
               <a className='text-red-600 hover:text-black justify-self-center' href='https://www.instagram.com/gabrikf/'><FaInstagram /></a>
-              <a className="text-xs font-bold text-gray-800 dark:text-white lg:text-xs hover:text-gray-700 dark:hover:text-gray-300" href='https://www.instagram.com/gabrikf/'>made by: @gabrikf</a>
+              <a className="text-xs font-bold text-gray-800 dark:text-white lg:text-xs hover:text-gray-700 dark:hover:text-gray-300 relative bottom-2 md:bottom-0" href='https://www.instagram.com/gabrikf/'>made by: @gabrikf</a>
               <a className='text-purple-600 hover:text-black justify-self-center' href='https://github.com/gabrikf'><AiFillGithub /></a>
               <a className='text-gray-600 hover:text-black justify-self-center' href='https://gabrikf-resume.vercel.app/'><FaLink /></a>
             </div>
