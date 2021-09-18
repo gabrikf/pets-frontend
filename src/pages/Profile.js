@@ -129,7 +129,7 @@ const Profile = () => {
      
 
         
-      <div className="mt-24 items-center lg:flex lg:mb-24">
+      <div className="mt-24 items-center lg:flex ">
           <div className="w-full  lg:w-1/2">
               <div className="lg:max-w-lg">
                   <h1 className="text-2xl font-semibold text-gray-800 uppercase dark:text-white lg:text-3xl">cadastre seu pet para adoção ou informe uma fuga!</h1>

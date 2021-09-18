@@ -52,8 +52,8 @@ useEffect(() => {
   })
   
   return (
-      <div className=' '>
-       <div className=" w-full max-w-sm my-36 2xl:my-52 mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <div className=''>
+       <div className=" w-full max-w-sm md:mt-20 mx-auto h-mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="px-6 py-4">
             <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
 
