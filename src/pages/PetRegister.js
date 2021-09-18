@@ -64,7 +64,7 @@ const PetRegister = () => {
   return (
     
     <div className=' '>
-          <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+          <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-4 ">
               <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
 
               <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Olá amigo, seja bem-vindo!</h3>
