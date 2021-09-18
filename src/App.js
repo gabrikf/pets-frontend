@@ -9,7 +9,7 @@ function App() {
 
   return (
    
-    <div className='bg-blue-50 dark:bg-gray-700 '>
+    <div className='bg-blue-50 dark:bg-gray-700 md:h-screen'>
       <AuthContextProvider>
      
           <Routes />  
