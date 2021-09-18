@@ -96,7 +96,7 @@ useEffect(() => {
         <div className="flex items-center justify-center py-4 text-center bg-gray-100 dark:bg-gray-700">
             <span className="text-sm text-gray-600 dark:text-gray-200">Ainda não tem uma conta? </span>
             
-            <Link to="#" className="mx-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500">Cadastre-se</Link>
+            <Link to="/users" className="mx-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500">Cadastre-se</Link>
         </div>
     </div>
    
