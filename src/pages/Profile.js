@@ -175,7 +175,7 @@ const Profile = () => {
                        <h1 className="mx-3 text-lg font-semibold text-white">{incident.pet_name}</h1>
             </div>
 
-            <div className="px-6 py-4">
+            <div className="px-6 pt-4">
                 
 
                
