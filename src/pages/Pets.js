@@ -131,7 +131,7 @@ const Pets = () => {
           </div> 
             
                 
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start ">
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 bg-white  dark:bg-gray-800">
                 { 
                 
                   incidents.filter(incident => (incident.animal_type === kindOfResults || !kindOfResults)).map(incident => ( 

@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <div>
 
-    <div className="container mx-auto">
+    <div className="container mx-auto px-6 ">
       <div className="items-center lg:flex">
           <div className="w-full  lg:w-1/2">
               <div className="lg:max-w-lg">
