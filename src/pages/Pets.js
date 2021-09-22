@@ -222,12 +222,14 @@ const Pets = () => {
                   <a
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    target="_blank"
                   >
                     <FaWhatsapp className=" text-xl" />
                   </a>
                   <a
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    target="_blank"
                   >
                     <h1 className="px-2 text-sm">
                       ({incident.whatsapp.slice(0, 2)}){" "}
