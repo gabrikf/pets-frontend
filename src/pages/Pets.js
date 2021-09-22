@@ -219,22 +219,22 @@ const Pets = () => {
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                  <Link
+                  <a
                     className="cursor-pointer"
-                    to={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                   >
                     <FaWhatsapp className=" text-xl" />
-                  </Link>
-                  <Link
+                  </a>
+                  <a
                     className="cursor-pointer"
-                    to={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                   >
                     <h1 className="px-2 text-sm">
                       ({incident.whatsapp.slice(0, 2)}){" "}
                       {incident.whatsapp.slice(2, 7)}-
                       {incident.whatsapp.slice(7)}
                     </h1>
-                  </Link>
+                  </a>
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
