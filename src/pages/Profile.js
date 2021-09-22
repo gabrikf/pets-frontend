@@ -148,7 +148,7 @@ const Profile = () => {
        
         }
     
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:m-20 m-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start lg:mx-20 mx-5">
      
       {incidents.map(incident => (
       <div key={incident.id_pet} className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
