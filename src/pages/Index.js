@@ -48,7 +48,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center lg:m-20 m-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center lg:mx-20 m-5">
         <div className="my-6 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
           <Link to="/login">
             <img className="object-cover w-56 h-36" src={dogImg} alt="avatar" />
