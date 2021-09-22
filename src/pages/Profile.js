@@ -110,7 +110,7 @@ const Profile = () => {
   } 
 
   return (
-    <div>
+    <div className='bg-blue-50 dark:bg-gray-700'>
          {!incidents[0] && 
          <div className="container mt-10 px-6 mx-auto">
             <div className="w-full  text-white bg-indigo-600 ">
