@@ -160,7 +160,7 @@ const Users = () => {
                     value={formik.values.neighborhood}
                     onChange={formik.handleChange}
                     />
-                    {formik.errors.neighborhood && <i className='text-red-400'>{formik.errors.neighborhood}</i>}
+                    {formik.errors.neighborhood && formik.touched.neighborhood && <i className='text-red-400'>{formik.errors.neighborhood}</i>}
                 </div>
 
                 <div className="w-full mt-0 ">
@@ -187,7 +187,7 @@ const Users = () => {
                     onChange={formik.handleChange}
                     
                     />
-                    {formik.errors.confirmPasswd && <i className='text-red-400'>{formik.errors.confirmPasswd}</i>}
+                    {formik.errors.confirmPasswd && formik.touched.confirmPasswd && <i className='text-red-400'>{formik.errors.confirmPasswd}</i>}
                 </div>
                 
                 {signInError && <Alert>Erro no cadastro, verifique o que você pode ter errado.</Alert>}
