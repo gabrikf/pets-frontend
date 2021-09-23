@@ -35,7 +35,7 @@ else {
   nav = [
     { name: 'Pets', href: '/pets', current: '' },
     { name: 'Meus pets', href: '/profile', current: ''},
-    { name: 'Cadastrar pet', href: '/petRegister', current: '' }
+    { name: 'Cadastrar pet', href: '/petregister', current: '' }
   ]
 }
 console.log(current)
