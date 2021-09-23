@@ -179,7 +179,7 @@ const handleLogOut = async() => {
                   aria-current={item.current ? 'page' : undefined}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>
