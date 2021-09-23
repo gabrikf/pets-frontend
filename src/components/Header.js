@@ -172,6 +172,7 @@ const handleLogOut = async() => {
                <Link
                   to={item.href}
                   key={item.name}
+                  aria-hidden="true"
                   className={classNames(
                     item.current ? 'bg-gray-900 text-gray-800 dark:text-white' : 'text-gray-800 dark:text-white hover:bg-gray-700 hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
