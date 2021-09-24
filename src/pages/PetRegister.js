@@ -7,10 +7,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 const petSchema = Yup.object().shape({
-  pet_name: Yup.string()
-                .min(3, 'por favor digite pelo menos 3 caracteres')
-                .max(15, 'máximo 15 caracteres')
-                .required('Por favor informe o nome.'),
+  pet_name: Yup.string()           
+                .max(15, 'máximo 15 caracteres'), 
   pet_age: Yup.string()
               .required('Por favor informe a idade do animal.')
               .max(15, 'máximo 15 caracteres'),
