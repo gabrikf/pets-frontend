@@ -4,7 +4,7 @@ import { AiFillGithub } from 'react-icons/ai'
 
 const Footer = () => {
     return (
-        <div className='bg-white shadow md:p-8 p-4 dark:bg-gray-800'>
+        <div className='bg-white shadow p-8 dark:bg-gray-800'>
           <div className='container mx-auto text-center font-bold'>     
             <div className='grid grid-cols-5 justify-items-stretch'>
               <a   className='text-blue-600 hover:text-black justify-self-center' href='https://www.linkedin.com/in/gabrielkf/'><FaLinkedin /></a>
