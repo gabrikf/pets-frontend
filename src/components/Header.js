@@ -65,7 +65,7 @@ const handleLogOut = async() => {
 
    
     <Disclosure as="nav" className="bg-white shadow dark:bg-gray-800">
-      {({ open }) => (
+       {({ open, close }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
@@ -169,16 +169,20 @@ const handleLogOut = async() => {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-               <Link
-                  to={item.href}
-                  key={item.name}
-                  
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-gray-800 dark:text-white' : 'text-gray-800 dark:text-white hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
+              <Link
+                    to={item.href}
+                    key={item.name}
+                    onClick={() => {
+                      close()
+                    }}
+                    className={classNames(
+                      item.current
+                        ? 'bg-gray-900 text-gray-800 dark:text-white'
+                        : 'text-gray-800 dark:text-white hover:bg-gray-700 hover:text-white',
+                      'block px-3 py-2 rounded-md text-base font-medium'
+                    )}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
                   {item.name}
                 </Link>
               ))}
