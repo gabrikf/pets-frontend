@@ -94,7 +94,7 @@ const Pets = () => {
 
   return (
     <div className='bg-blue-50 dark:bg-gray-700'>
-      <div className=" p-20 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
+      <div className=" p-20 grid md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
         <div className="mb-4 md:mb-0 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
           <HashLink onClick={() => setFilter("Cachorro")} to="/pets#pets_initial"
           scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}>
