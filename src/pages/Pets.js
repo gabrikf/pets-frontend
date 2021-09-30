@@ -7,9 +7,8 @@ import api from "../services/api";
 import catImg from "../assets/gatos.jpeg";
 import dogImg from "../assets/cachorros.jpeg";
 import lostPet from "../assets/lostpet.jpeg";
-import { Link } from "react-router-dom";
 import useAuth from "../hook/useAuth";
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from "react-router-hash-link";
 
 const Pets = () => {
   const { login } = useAuth();
@@ -93,11 +92,16 @@ const Pets = () => {
   }, [page, filter]);
 
   return (
-    <div className='bg-blue-50 dark:bg-gray-700'>
+    <div className="bg-blue-50 dark:bg-gray-700">
       <div className=" p-20 grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
         <div className="mb-4 md:mb-0 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
-          <HashLink onClick={() => setFilter("Cachorro")} to="/pets#pets_initial"
-          scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}>
+          <HashLink
+            onClick={() => setFilter("Cachorro")}
+            to="/pets#pets_initial"
+            scroll={(el) =>
+              el.scrollIntoView({ behavior: "auto", block: "end" })
+            }
+          >
             <img className="object-cover w-44 h-28" src={dogImg} alt="avatar" />
           </HashLink>
 
@@ -105,7 +109,9 @@ const Pets = () => {
             <HashLink
               onClick={() => setFilter("Cachorro")}
               to="/pets#pets_initial"
-              scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}
+              scroll={(el) =>
+                el.scrollIntoView({ behavior: "auto", block: "end" })
+              }
               className="block text-lg text-gray-800 dark:text-white"
             >
               Cachorros
@@ -114,8 +120,13 @@ const Pets = () => {
         </div>
 
         <div className="mb-4 md:mb-20 max-w-xs bg-blue-100  mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 dark:border-gray-400">
-          <HashLink onClick={() => setFilter("Perdido")} to="/pets#pets_initial"
-          scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}>
+          <HashLink
+            onClick={() => setFilter("Perdido")}
+            to="/pets#pets_initial"
+            scroll={(el) =>
+              el.scrollIntoView({ behavior: "auto", block: "end" })
+            }
+          >
             <img
               className="object-cover w-44  h-28"
               src={lostPet}
@@ -127,7 +138,9 @@ const Pets = () => {
             <HashLink
               onClick={() => setFilter("Perdido")}
               to="/pets#pets_initial"
-              scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}
+              scroll={(el) =>
+                el.scrollIntoView({ behavior: "auto", block: "end" })
+              }
               className="block text-base  text-gray-800 dark:text-white"
             >
               Perdidos
@@ -136,8 +149,13 @@ const Pets = () => {
         </div>
 
         <div className="max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 dark:border-gray-400 ">
-          <HashLink onClick={() => setFilter("Gato")} to="/pets#pets_initial"
-          scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}>
+          <HashLink
+            onClick={() => setFilter("Gato")}
+            to="/pets#pets_initial"
+            scroll={(el) =>
+              el.scrollIntoView({ behavior: "auto", block: "end" })
+            }
+          >
             <img
               className="object-cover  w-44  h-28"
               src={catImg}
@@ -149,7 +167,9 @@ const Pets = () => {
             <HashLink
               onClick={() => setFilter("Gato")}
               to="/pets#pets_initial"
-              scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}
+              scroll={(el) =>
+                el.scrollIntoView({ behavior: "auto", block: "end" })
+              }
               className="block text-lg text-gray-800 dark:text-white"
             >
               Gatos
@@ -158,7 +178,10 @@ const Pets = () => {
         </div>
       </div>
 
-      <div id='pets_initial' className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
+      <div
+        id="pets_initial"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 "
+      >
         {incidents
           .filter(
             (incident) =>
@@ -230,6 +253,7 @@ const Pets = () => {
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                     target="_blank"
+                    rel="noreferrer" 
                   >
                     <FaWhatsapp className=" text-xl" />
                   </a>
@@ -237,6 +261,7 @@ const Pets = () => {
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                     target="_blank"
+                    rel="noreferrer" 
                   >
                     <h1 className="px-2 text-sm">
                       ({incident.whatsapp.slice(0, 2)}){" "}
@@ -266,8 +291,10 @@ const Pets = () => {
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (
           <HashLink
-              to="/pets#pets_initial"
-              scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}
+            to="/pets#pets_initial"
+            scroll={(el) =>
+              el.scrollIntoView({ behavior: "auto", block: "end" })
+            }
             className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page - 1)}
           >
@@ -275,9 +302,11 @@ const Pets = () => {
           </HashLink>
         )}
         {hasNext && (
-            <HashLink
-              to="/pets#pets_initial"
-              scroll={(el) => el.scrollIntoView({ behavior: 'auto', block: 'end' })}
+          <HashLink
+            to="/pets#pets_initial"
+            scroll={(el) =>
+              el.scrollIntoView({ behavior: "auto", block: "end" })
+            }
             className="md:m-2   w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page + 1)}
           >

@@ -10,8 +10,6 @@ import heroImg from '../assets/prof.png'
 import useAuth from '../hook/useAuth'
 
 
-
-
 const Profile = () => {
   const {login, handleLogout } = useAuth()
   const [incidents, setIncidents] = useState([])
