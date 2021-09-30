@@ -5,9 +5,12 @@ import Users from './pages/Users'
 import Profile from './pages/Profile'
 import PetRegister from './pages/PetRegister'
 import Login from './pages/Login'
-import Pets from './pages/Pets'
+import Dogs from './pages/Dogs'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Cats from './pages/Cats'
+import LostAnimals from './pages/LostAnimals'
+
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -17,7 +20,9 @@ const Routes = () => {
       </div>
       <Switch>     
         <Route path="/" exact component={Index}/>
-        <Route path="/pets" exact component={Pets}/>
+        <Route path="/dogs" exact component={Dogs}/>
+        <Route path="/cats" exact component={Cats}/>
+        <Route path="/lostanimals" exact component={LostAnimals}/>
         <Route path="/login" component={Login}/>
         <Route path="/users" component={Users}/>
         <Route path="/profile" component={Profile}/>

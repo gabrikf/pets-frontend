@@ -10,7 +10,7 @@ import lostPet from "../assets/lostpet.jpeg";
 import useAuth from "../hook/useAuth";
 import { HashLink } from "react-router-hash-link";
 
-const Pets = () => {
+const LostAnimals = () => {
   const { login } = useAuth();
   const [incidents, setIncidents] = useState([]);
   const [page, setPage] = useState(0);
@@ -57,8 +57,8 @@ const Pets = () => {
   };
 
   useEffect(() => {
-    if (filter) {
-      api.get(`/${filter}/${page}`).then((response) => {
+
+      api.get(`/Perdido/${page}`).then((response) => {
         if (response.error) {
           console.log(response.error);
         }
@@ -72,28 +72,11 @@ const Pets = () => {
         setHasNext(next);
         setIncidents(response.data);
       });
-    } else {
-      api.get(`/${page}`).then((response) => {
-        if (response.error) {
-          console.log(response.error);
-        }
-        console.log(response.data.data);
-        const next = response.data.hasNext;
-        response.data = response.data.data.map((pet) => {
-          pet.likes = JSON.parse(pet.likes);
-          return pet;
-        });
-
-        setHasNext(next);
-        setIncidents(response.data);
-      });
-    }
-    console.log("opa");
-  }, [page, filter]);
+  }, [page]);
 
   return (
-    <div className="bg-blue-50 dark:bg-gray-700">
-      <div className=" p-20 grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
+    <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
+      {/* <div className=" p-20 grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
         <div className="mb-4 md:mb-0 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
           <HashLink
             onClick={() => setFilter("Cachorro")}
@@ -176,10 +159,10 @@ const Pets = () => {
             </HashLink>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div
-        id="pets_initial"
+        
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 "
       >
         {incidents
@@ -318,4 +301,4 @@ const Pets = () => {
   );
 };
 
-export default Pets;
+export default LostAnimals;
