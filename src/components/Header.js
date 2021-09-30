@@ -25,7 +25,7 @@ const Header = () => {
         { name: "Home", href: "/", current: "" },
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
-        { name: "Animais Perdidos", href: "/lostanimals", current: "" },
+        { name: "Perdidos", href: "/lostanimals", current: "" },
         { name: "Login", href: "/login", current: "" },
         { name: "Registrar-se", href: "/users", current: "" },
       ];
@@ -33,7 +33,7 @@ const Header = () => {
       nav = [
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
-        { name: "Animais Perdidos", href: "/lostanimals", current: "" },
+        { name: "Perdidos", href: "/lostanimals", current: "" },
         { name: "Meus pets", href: "/profile", current: "" },
         { name: "Cadastrar pet", href: "/petregister", current: "" },
       ];

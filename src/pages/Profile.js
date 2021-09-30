@@ -8,13 +8,14 @@ import { AiOutlineMail } from 'react-icons/ai'
 import api from '../services/api'
 import heroImg from '../assets/prof.png'
 import useAuth from '../hook/useAuth'
+import { ImSpinner3 } from 'react-icons/im'
 
 
 const Profile = () => {
   const {login, handleLogout } = useAuth()
   const [incidents, setIncidents] = useState([])
   const [photo, setPhoto] = useState('')
-
+  const [loading, setLoading] = useState(true)
   const history = useHistory()
 
   useEffect(() => {
@@ -43,11 +44,11 @@ const Profile = () => {
       setIncidents(response.data)
   
       
-    })
+    }).then(() => setLoading(false))
   }, [history, login, handleLogout])
 
   const handleUpload = async(id) => {
-   
+   setLoading(true)
     const formData  = new FormData()
     formData.append('image', photo)
 
@@ -77,7 +78,7 @@ const Profile = () => {
 
         setIncidents(response.data)
  
-      })
+      }).then(() => setLoading(false))
     
    
       } catch (err) {
@@ -106,10 +107,16 @@ const Profile = () => {
       alert('Erro ao deletar caso, tente novamente.')
     }
   } 
-
+  if (loading) {
+    return (
+      <div className='flex h-full w-full justify-center items-center'>
+        <ImSpinner3 className='text-base mr-1'/> Loading
+      </div>
+    );
+  }
   return (
     <div className='bg-blue-50 dark:bg-gray-700'>
-         {!incidents[0] && 
+         {!incidents[0] && !loading &&
          <div className="container mt-10 px-6 mx-auto">
             <div className="w-full  text-white bg-indigo-600 ">
             <div className="container flex items-center justify-between px-6 py-4 mx-auto">
