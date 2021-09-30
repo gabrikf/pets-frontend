@@ -38,9 +38,9 @@ const Header = () => {
         { name: "Cadastrar pet", href: "/petregister", current: "" },
       ];
     }
-    setNavigationLogin(
+    setNavigationLogin([
     { name: "Login", href: "/login" },
-    { name: "Registrar-se", href: "/users"})
+    { name: "Registrar-se", href: "/users"}])
     console.log(current);
     setNavigation(nav);
   }, [login, current]);
@@ -168,7 +168,7 @@ const Header = () => {
                   </Menu>
                   ):
                   <Menu as="div" className="ml-3 relative">
-                  {({ open, close }) => (
+                  {({ open }) => (
                     <>
                       <div>
                         <Menu.Button>
@@ -195,9 +195,10 @@ const Header = () => {
                           <Menu.Item>
                             {({ active }) => (
                               <>
-                              {navigationLogin.map(nav => 
+                              {navigationLogin.map((nav, index) => 
                               <Link
-                                to={`${nav.href}`}
+                                to={nav.href}
+                                key={index}
                                 onClick={() => {
                                   close();
                                 }}
