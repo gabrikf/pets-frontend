@@ -56,6 +56,7 @@ const Cats = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     api
       .get(`/Gato/${page}`)
       .then((response) => {

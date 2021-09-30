@@ -55,6 +55,7 @@ const LostAnimals = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     api
       .get(`/Perdido/${page}`)
       .then((response) => {

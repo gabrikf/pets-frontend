@@ -55,6 +55,7 @@ const Dogs = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     api
       .get(`/Cachorro/${page}`)
       .then((response) => {
