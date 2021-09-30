@@ -7,15 +7,14 @@ import api from "../services/api";
 import useAuth from "../hook/useAuth";
 import { HashLink } from "react-router-hash-link";
 import { ImSpinner3 } from "react-icons/im";
-import heroImg from '../assets/prof.png'
-import { Link } from "react-router-dom";
+import heroImg from "../assets/prof.png";
 
 const LostAnimals = () => {
   const { login } = useAuth();
   const [incidents, setIncidents] = useState([]);
   const [page, setPage] = useState(0);
   const [hasNext, setHasNext] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const kindOfResults = localStorage.getItem("filter");
 
   const dislike = async (pet) => {
@@ -56,8 +55,9 @@ const LostAnimals = () => {
   };
 
   useEffect(() => {
-
-      api.get(`/Perdido/${page}`).then((response) => {
+    api
+      .get(`/Perdido/${page}`)
+      .then((response) => {
         if (response.error) {
           console.log(response.error);
         }
@@ -70,55 +70,48 @@ const LostAnimals = () => {
 
         setHasNext(next);
         setIncidents(response.data);
-      }).then(() => setLoading(false))
+      })
+      .then(() => setLoading(false));
   }, [page]);
   if (loading) {
     return (
-      <div className='flex h-full w-full justify-center items-center'>
-        <ImSpinner3 className='text-base mr-1'/> Loading
+      <div className="flex h-full w-full justify-center items-center">
+        <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );
   }
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-       {!incidents[0] && !loading &&
-         <div className="container mt-10 px-6 mx-auto">
-            <div className="w-full  text-white bg-indigo-600 ">
+      {!incidents[0] && !loading && (
+        <div className="container mt-10 px-6 mx-auto">
+          <div className="w-full  text-white bg-indigo-600 ">
             <div className="container flex items-center justify-between px-6 py-4 mx-auto">
-                <div className="flex">
-                    <svg viewBox="0 0 40 40" className="w-6 h-6 fill-current">
-                        <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
-                    </svg>
-    
-                    <p className="mx-3">Ainda não temos pets por aqui.</p>
-                </div>
-    
-                
-            </div>
-            </div>
-     
+              <div className="flex">
+                <svg viewBox="0 0 40 40" className="w-6 h-6 fill-current">
+                  <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
+                </svg>
 
-        
-      <div className="mt-24 items-center lg:flex ">
-          <div className="w-full  lg:w-1/2">
-              <div className="lg:max-w-lg">
-                  <Link to="/petregister" className="w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Cadastre</Link>
+                <p className="mx-3">Ainda não temos pets por aqui.</p>
               </div>
+            </div>
           </div>
-         
-                      <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-                          <img className="w-full h-full lg:max-w-md" src={heroImg} alt="Catalogue-pana.svg"/>
-                      </div>
-                  </div>
-              </div>
-        
-        
-       
-        }
-      <div
-        
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 "
-      >
+
+          <div className="mt-24 items-center lg:flex ">
+            <div className="w-full  lg:w-1/2">
+              <div className="lg:max-w-lg"></div>
+            </div>
+
+            <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+              <img
+                className="w-full h-full lg:max-w-md"
+                src={heroImg}
+                alt="Catalogue-pana.svg"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
         {incidents
           .filter(
             (incident) =>
@@ -190,7 +183,7 @@ const LostAnimals = () => {
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                     target="_blank"
-                    rel="noreferrer" 
+                    rel="noreferrer"
                   >
                     <FaWhatsapp className=" text-xl" />
                   </a>
@@ -198,7 +191,7 @@ const LostAnimals = () => {
                     className="cursor-pointer"
                     href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
                     target="_blank"
-                    rel="noreferrer" 
+                    rel="noreferrer"
                   >
                     <h1 className="px-2 text-sm">
                       ({incident.whatsapp.slice(0, 2)}){" "}
