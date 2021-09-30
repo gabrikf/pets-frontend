@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import heroImg from "../assets/hero-img.png";
-import catImg from "../assets/gatocao.jpeg";
-import dogImg from "../assets/caogato.png";
+import catImg from "../assets/gatos.jpeg";
+import dogImg from "../assets/cachorros.jpeg";
 import useAuth from "../hook/useAuth";
 import { Link, useHistory } from "react-router-dom";
 
@@ -50,30 +50,30 @@ const Index = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center lg:mx-20 m-5">
         <div className="my-6 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
-          <Link to="/login">
-            <img className="object-cover w-56 h-36" src={dogImg} alt="avatar" />
+          <Link to="/dogs">
+            <img className="object-cover w-56 h-36" src={dogImg} alt="dogsImage" />
           </Link>
 
           <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
             <Link
-              to="/login"
+              to="/dogs"
               className="block text-lg text-gray-800 dark:text-white"
             >
-              Entrar
+              Cachorros
             </Link>
           </div>
         </div>
         <div className="my-2 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
-          <Link to="/pets">
-            <img className="object-cover w-56 h-36" src={catImg} alt="avatar" />
+          <Link to="/cats">
+            <img className="object-cover w-56 h-36" src={catImg} alt="catsImage" />
           </Link>
 
           <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
             <Link
-              to="/pets"
+              to="/cats"
               className="block text-lg text-gray-800 dark:text-white"
             >
-              Pets
+              Gatos
             </Link>
           </div>
         </div>

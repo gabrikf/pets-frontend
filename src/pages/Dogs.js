@@ -4,9 +4,6 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { GiCat, GiSittingDog } from "react-icons/gi";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
-import catImg from "../assets/gatos.jpeg";
-import dogImg from "../assets/cachorros.jpeg";
-import lostPet from "../assets/lostpet.jpeg";
 import useAuth from "../hook/useAuth";
 import { HashLink } from "react-router-hash-link";
 
@@ -14,7 +11,6 @@ const Dogs = () => {
   const { login } = useAuth();
   const [incidents, setIncidents] = useState([]);
   const [page, setPage] = useState(0);
-  const [filter, setFilter] = useState("");
   const [hasNext, setHasNext] = useState(false);
 
   const kindOfResults = localStorage.getItem("filter");
@@ -76,91 +72,6 @@ const Dogs = () => {
 
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-      {/* <div className=" p-20 grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 items-center lg:m-20 m-5">
-        <div className="mb-4 md:mb-0 max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 border-4 dark:border-gray-400">
-          <HashLink
-            onClick={() => setFilter("Cachorro")}
-            to="/pets#pets_initial"
-            scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
-            }
-          >
-            <img className="object-cover w-44 h-28" src={dogImg} alt="avatar" />
-          </HashLink>
-
-          <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
-            <HashLink
-              onClick={() => setFilter("Cachorro")}
-              to="/pets#pets_initial"
-              scroll={(el) =>
-                el.scrollIntoView({ behavior: "auto", block: "end" })
-              }
-              className="block text-lg text-gray-800 dark:text-white"
-            >
-              Cachorros
-            </HashLink>
-          </div>
-        </div>
-
-        <div className="mb-4 md:mb-20 max-w-xs bg-blue-100  mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 dark:border-gray-400">
-          <HashLink
-            onClick={() => setFilter("Perdido")}
-            to="/pets#pets_initial"
-            scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
-            }
-          >
-            <img
-              className="object-cover w-44  h-28"
-              src={lostPet}
-              alt="avatar"
-            />
-          </HashLink>
-
-          <div className="mt- border-t border-indigo-600 py-2 text-center dark:border-gray-400">
-            <HashLink
-              onClick={() => setFilter("Perdido")}
-              to="/pets#pets_initial"
-              scroll={(el) =>
-                el.scrollIntoView({ behavior: "auto", block: "end" })
-              }
-              className="block text-base  text-gray-800 dark:text-white"
-            >
-              Perdidos
-            </HashLink>
-          </div>
-        </div>
-
-        <div className="max-w-xs bg-blue-100 mx-auto border border-indigo-600 overflow-hidden bg-white rounded-full shadow-lg dark:bg-gray-800 dark:border-gray-400 ">
-          <HashLink
-            onClick={() => setFilter("Gato")}
-            to="/pets#pets_initial"
-            scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
-            }
-          >
-            <img
-              className="object-cover  w-44  h-28"
-              src={catImg}
-              alt="avatar"
-            />
-          </HashLink>
-
-          <div className="border-t border-indigo-600 py-2 text-center dark:border-gray-400">
-            <HashLink
-              onClick={() => setFilter("Gato")}
-              to="/pets#pets_initial"
-              scroll={(el) =>
-                el.scrollIntoView({ behavior: "auto", block: "end" })
-              }
-              className="block text-lg text-gray-800 dark:text-white"
-            >
-              Gatos
-            </HashLink>
-          </div>
-        </div>
-      </div> */}
-
       <div
         
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 "
@@ -274,7 +185,7 @@ const Dogs = () => {
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (
           <HashLink
-            to="/pets#pets_initial"
+            to="/dogs#pets_initial"
             scroll={(el) =>
               el.scrollIntoView({ behavior: "auto", block: "end" })
             }
@@ -286,11 +197,11 @@ const Dogs = () => {
         )}
         {hasNext && (
           <HashLink
-            to="/pets#pets_initial"
+            to="/dogs#pets_initial"
             scroll={(el) =>
               el.scrollIntoView({ behavior: "auto", block: "end" })
             }
-            className="md:m-2   w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
+            className="md:m-2   w-full px-3 py-4 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page + 1)}
           >
             Próxima página
