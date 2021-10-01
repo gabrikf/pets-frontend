@@ -5,7 +5,7 @@ import { GiCat, GiSittingDog } from "react-icons/gi";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
 import useAuth from "../hook/useAuth";
-import { HashLink } from "react-router-hash-link";
+import { HashLink,} from "react-router-hash-link";
 import { ImSpinner3 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import heroImg from "../assets/prof.png";
@@ -232,7 +232,7 @@ const Cats = () => {
           <HashLink
             to="/cats#pets_initial"
             scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
+              el.scrollIntoView({ behavior: "auto", block: "start" })
             }
             className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page - 1)}
@@ -244,7 +244,7 @@ const Cats = () => {
           <HashLink
             to="/cats#pets_initial"
             scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
+              el.scrollIntoView({ behavior: "auto", block: "start" })
             }
             className="md:m-4 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page + 1)}
