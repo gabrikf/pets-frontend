@@ -76,9 +76,9 @@ const Dogs = () => {
   }, [page]);
   if (loading) {
     return (
-
+ <div className="flex h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
- 
+ </div>
     );
   }
   return (
