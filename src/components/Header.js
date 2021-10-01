@@ -192,12 +192,13 @@ const Header = () => {
                           static
                           className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         >
+                          {open ?
                           <Menu.Item>
                             {({ active }) => (
                               <>
                               {navigationLogin.map((nav, index) => 
-                              <Link
-                                to={nav.href}
+                              <a
+                                href={nav.href}
                                 key={index}
                                 onClick={() => {
                                   close();
@@ -208,11 +209,12 @@ const Header = () => {
                                 )}
                               >
                                 {nav.name}
-                              </Link>
+                              </a>
                           )}
                               </>
                             )}
                           </Menu.Item>
+                           : ''}
                         </Menu.Items>
                       </Transition>
                     </>
