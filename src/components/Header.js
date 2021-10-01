@@ -27,7 +27,6 @@ const Header = () => {
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
         { name: "Perdidos", href: "/lostanimals", current: "" },
-      
       ];
     } else {
       nav = [
@@ -39,8 +38,9 @@ const Header = () => {
       ];
     }
     setNavigationLogin([
-    { name: "Login", href: "/login" },
-    { name: "Registrar-se", href: "/users"}])
+      { name: "Login", href: "/login" },
+      { name: "Registrar-se", href: "/users" },
+    ]);
     console.log(current);
     setNavigation(nav);
   }, [login, current]);
@@ -122,105 +122,98 @@ const Header = () => {
 
                   {/* Profile dropdown */}
                   {login ? (
-                  <Menu as="div" className="ml-3 relative">
-                    {({ open }) => (
-                      <>
-                        <div>
-                          <Menu.Button>
-                            <span className="sr-only">Open user menu</span>
-                            
+                    <Menu as="div" className="ml-3 relative">
+                      {({ open }) => (
+                        <>
+                          <div>
+                            <Menu.Button>
+                              <span className="sr-only">Open user menu</span>
+
                               <FaUserAlt className="text-gray-900 dark:text-white" />
-                            
-                          </Menu.Button>
-                        </div>
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <Menu.Items
-                            static
-                            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            show={open}
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
                           >
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="/#"
-                                  onClick={handleLogOut}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  Sair
-                                </a>
-                              )}
-                            </Menu.Item>
-                          </Menu.Items>
-                        </Transition>
-                      </>
-                    )}
-                  </Menu>
-                  ):
-                  <Menu as="div" className="ml-3 relative">
-                  {({ open }) => (
-                    <>
-                      <div>
-                        <Menu.Button>
-                          <span className="sr-only">Open user menu</span>
-                          
-                            <FaUserAlt className="text-gray-900 dark:text-white" />
-                          
-                        </Menu.Button>
-                      </div>
-                      <Transition
-                        show={open}
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                      >
-                        <Menu.Items
-                          static
-                          className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                        >
-                          {open ?
-                          <Menu.Item>
-                            {({ active }) => (
-                              <>
-                              {navigationLogin.map((nav, index) => 
-                              <a
-                                href={nav.href}
-                                key={index}
-                                onClick={() => {
-                                  close();
-                                }}
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                            <Menu.Items
+                              static
+                              className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            >
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <a
+                                    href="/#"
+                                    onClick={handleLogOut}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    Sair
+                                  </a>
                                 )}
-                              >
-                                {nav.name}
-                              </a>
-                          )}
-                              </>
-                            )}
-                          </Menu.Item>
-                           : ''}
-                        </Menu.Items>
-                      </Transition>
-                    </>
+                              </Menu.Item>
+                            </Menu.Items>
+                          </Transition>
+                        </>
+                      )}
+                    </Menu>
+                  ) : (
+                    <Menu as="div" className="ml-3 relative">
+                      {({ open }) => (
+                        <>
+                          <div>
+                            <Menu.Button>
+                              <span className="sr-only">Open user menu</span>
+
+                              <FaUserAlt className="text-gray-900 dark:text-white" />
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            show={open}
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items
+                              static
+                              className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            >
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <>
+                                    {navigationLogin.map((nav, index) => (
+                                      <a
+                                        href={nav.href}
+                                        key={index}
+                                        className={classNames(
+                                          active ? "bg-gray-100" : "",
+                                          "block px-4 py-2 text-sm text-gray-700"
+                                        )}
+                                      >
+                                        {nav.name}
+                                      </a>
+                                    ))}
+                                  </>
+                                )}
+                              </Menu.Item>
+                            </Menu.Items>
+                          </Transition>
+                        </>
+                      )}
+                    </Menu>
                   )}
-                </Menu>
-                  }
                 </div>
               </div>
             </div>
