@@ -26,13 +26,11 @@ const Header = () => {
         { name: "Home", href: "/", current: "" },
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
-        { name: "Ongs", href: "/ongs/0", current: "" },
       ];
     } else {
       nav = [
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
-        { name: "Ongs", href: "/ongs/", current: "" },
         { name: "Meus pets", href: "/profile", current: "" },
         { name: "Cadastrar pet", href: "/petregister", current: "" },
       ];

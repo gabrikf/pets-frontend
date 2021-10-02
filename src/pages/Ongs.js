@@ -7,7 +7,8 @@ import api from "../services/api";
 import useAuth from "../hook/useAuth";
 import { HashLink } from "react-router-hash-link";
 import { ImSpinner3 } from "react-icons/im";
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import heroImg from "../assets/prof.png";
 
 const Ongs = () => {
   const { login } = useAuth();
@@ -15,9 +16,9 @@ const Ongs = () => {
   const [page, setPage] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [ongOptions, setOngOptions] = useState([])
+
   const kindOfResults = localStorage.getItem("filter");
-  const history = useHistory()
+
   const params = useParams()
   const ongid = params.id
   const dislike = async (pet) => {
@@ -59,12 +60,6 @@ const Ongs = () => {
   };
 
   useEffect(() => {
-
-    api
-      .get(`/users/return/ongs`).then(response => setOngOptions(response.data)).then(() => setLoading(false))
-    if(ongid === 0){
-      return
-    }
     setLoading(true)
     api
       .get(`/ongs/${page}/${ongid}`)
@@ -91,26 +86,38 @@ const Ongs = () => {
       </div>
     );
   }
-  const handlefindOng = (e) => {
-    e.preventDefault()
-    history.push(`${e.target.value}`)
-  }
+ 
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-      <div className='flex justify-center m-2'>
-          <select 
-                className="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
-                name='ong'
-                onChange={e => handlefindOng(e)}
-          
-                >
-                  <option value='' hidden>Selecione uma ong...</option>
-                  {ongOptions.map(ong => (
-                    <option value={ong.id}>{ong.name}</option>
-                  ))}
-                  
-                </select>
-                </div>
+       {!incidents[0] && !loading && (
+        <div className="container mt-10 px-6 mx-auto">
+          <div className="w-full  text-white bg-indigo-600 ">
+            <div className="container flex items-center justify-between px-6 py-4 mx-auto">
+              <div className="flex">
+                <svg viewBox="0 0 40 40" className="w-6 h-6 fill-current">
+                  <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path>
+                </svg>
+
+                <p className="mx-3">Ainda não temos pets por aqui.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-24 items-center lg:flex ">
+            <div className="w-full  lg:w-1/2">
+              <div className="lg:max-w-lg"></div>
+            </div>
+
+            <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+              <img
+                className="w-full h-full lg:max-w-md"
+                src={heroImg}
+                alt="Catalogue-pana.svg"
+              />
+            </div>
+          </div>
+        </div>
+      )}
                 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
         {incidents
