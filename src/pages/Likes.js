@@ -5,18 +5,16 @@ import { GiCat, GiSittingDog } from "react-icons/gi";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
 import useAuth from "../hook/useAuth";
-import { HashLink,} from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 import { ImSpinner3 } from "react-icons/im";
-import { Link } from "react-router-dom";
 import heroImg from "../assets/prof.png";
 
-const Cats = () => {
+const Likes = () => {
   const { login } = useAuth();
   const [incidents, setIncidents] = useState([]);
   const [page, setPage] = useState(0);
   const [hasNext, setHasNext] = useState(false);
   const [loading, setLoading] = useState(true);
-  const kindOfResults = localStorage.getItem("filter");
 
   const dislike = async (pet) => {
     delete pet.likes[login.userId];
@@ -30,7 +28,7 @@ const Cats = () => {
         Authorization: `Bearer ${login.id}`,
       },
     })
-    api.get(`/${page}`).then((response) => {
+    .get(`/pets/likes/${login.userId}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
@@ -53,7 +51,7 @@ const Cats = () => {
       },
     })
     api
-      .get(`/${page}`)
+    .get(`/pets/likes/${login.userId}`)
 
       .then((response) => {
         response.data = response.data.data.map((pet) => {
@@ -68,7 +66,7 @@ const Cats = () => {
   useEffect(() => {
     setLoading(true)
     api
-      .get(`/Gato/${page}`)
+      .get(`/pets/likes/${login.userId}`)
       .then((response) => {
         if (response.error) {
           console.log(response.error);
@@ -84,17 +82,18 @@ const Cats = () => {
         setIncidents(response.data);
       })
       .then(() => setLoading(false));
-  }, [page]);
+  }, [page, login]);
   if (loading) {
     return (
-     <div className="flex h-screen w-full justify-center items-center">
+      <div className="flex h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );
   }
+ 
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-      {!incidents[0] && !loading && (
+       {!incidents[0] && !loading && (
         <div className="container mt-10 px-6 mx-auto">
           <div className="w-full  text-white bg-indigo-600 ">
             <div className="container flex items-center justify-between px-6 py-4 mx-auto">
@@ -110,14 +109,7 @@ const Cats = () => {
 
           <div className="mt-24 items-center lg:flex ">
             <div className="w-full  lg:w-1/2">
-              <div className="lg:max-w-lg">
-                <Link
-                  to="/"
-                  className="w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
-                >
-                  Voltar
-                </Link>
-              </div>
+              <div className="lg:max-w-lg"></div>
             </div>
 
             <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
@@ -130,12 +122,9 @@ const Cats = () => {
           </div>
         </div>
       )}
+                
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
         {incidents
-          .filter(
-            (incident) =>
-              incident.animal_type === kindOfResults || !kindOfResults
-          )
           .map((incident) => (
             <div
               key={incident.id_pet}
@@ -182,9 +171,7 @@ const Cats = () => {
                   </div>
                 )}
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                <Link to={`ongs/${incident.users_id}`}>
                   {incident.name}
-                  </Link>
                 </h1>
                 <div className="py-2 text-gray-700 dark:text-gray-400">
                   <strong className="text-black dark:text-white">
@@ -242,9 +229,9 @@ const Cats = () => {
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (
           <HashLink
-            to="/cats#pets_initial"
+          to={`likes#pets_initial`}
             scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "start" })
+              el.scrollIntoView({ behavior: "auto", block: "end" })
             }
             className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page - 1)}
@@ -254,11 +241,11 @@ const Cats = () => {
         )}
         {hasNext && (
           <HashLink
-            to="/cats#pets_initial"
+            to={`likes#pets_initial`}
             scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "start" })
+              el.scrollIntoView({ behavior: "auto", block: "end" })
             }
-            className="md:m-4 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
+            className="md:m-4   w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page + 1)}
           >
             Próxima página
@@ -269,4 +256,4 @@ const Cats = () => {
   );
 };
 
-export default Cats;
+export default Likes;

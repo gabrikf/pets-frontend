@@ -32,6 +32,7 @@ const Header = () => {
         { name: "Cachorros", href: "/dogs", current: "" },
         { name: "Gatos", href: "/cats", current: "" },
         { name: "Meus pets", href: "/profile", current: "" },
+        { name: "Curtidas", href: `/likes`, current: "" },
         { name: "Cadastrar pet", href: "/petregister", current: "" },
       ];
     }

@@ -10,6 +10,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Cats from './pages/Cats'
 import Ongs from './pages/Ongs'
+import Likes from './pages/Likes'
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
         <Route path="/" exact component={Index}/>
         <Route path="/dogs" exact component={Dogs}/>
         <Route path="/cats" exact component={Cats}/>
+        <Route path="/likes" exact component={Likes}/>
         <Route path="/ongs/:id" component={Ongs}/>
         <Route path="/login" component={Login}/>
         <Route path="/users" component={Users}/>

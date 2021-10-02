@@ -24,6 +24,11 @@ const Dogs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
+    api.delete(`pets/likes/${login.userId}/${pet.id_pet}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
     api.get(`/${page}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
@@ -41,6 +46,11 @@ const Dogs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
+    api.post(`pets/likes/${login.userId}/${pet.id_pet}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
     api
       .get(`/${page}`)
 
