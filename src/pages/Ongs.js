@@ -106,7 +106,7 @@ const Ongs = () => {
                   {ongOptions.map(ong => (
                     <option value={ong.id}>{ong.name}</option>
                   ))}
-                  <option value='' hidden>Selecione uma opção...</option>
+                  
                 </select>
                 </div>
                 
