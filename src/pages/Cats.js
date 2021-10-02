@@ -172,7 +172,9 @@ const Cats = () => {
                   </div>
                 )}
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
+                <Link to={`ongs/${incident.users_id}`}>
                   {incident.name}
+                  </Link>
                 </h1>
                 <div className="py-2 text-gray-700 dark:text-gray-400">
                   <strong className="text-black dark:text-white">
