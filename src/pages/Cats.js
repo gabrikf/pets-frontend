@@ -47,7 +47,7 @@ const Cats = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.post(`pets/likes/${login.userId}/${pet.id_pet}`, {
+    api.post(`pets/likes/${login.userId}/${pet.id_pet}`,'', {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
