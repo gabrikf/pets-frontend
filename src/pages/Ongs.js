@@ -93,7 +93,7 @@ const Ongs = () => {
   }
   const handlefindOng = (e) => {
     e.preventDefault()
-    history.push(`/${e.target.value}`)
+    history.push(`${e.target.value}`)
   }
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
