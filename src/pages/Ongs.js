@@ -93,11 +93,11 @@ const Ongs = () => {
   }
   const handlefindOng = (e) => {
     e.preventDefault()
-    history.push(`ongs/${e.target.value}`)
+    history.push(`/${e.target.value}`)
   }
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-      <div className='flex justify-start m-2'>
+      <div className='flex justify-center m-2'>
           <select 
                 className="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
                 name='ong'
