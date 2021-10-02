@@ -59,8 +59,8 @@ const Ongs = () => {
 
   useEffect(() => {
     api
-      .get(`/users/return/ongs`).then(response => setOngOptions(response.data))
-    if(ongid < 1){
+      .get(`/users/return/ongs`).then(response => setOngOptions(response.data)).then(() => setLoading(false))
+    if(ongid === 0){
       return
     }
     setLoading(true)
@@ -220,7 +220,7 @@ const Ongs = () => {
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (
           <HashLink
-            to="/lostanimals#pets_initial"
+          to={`ongs/${ongid}#pets_initial`}
             scroll={(el) =>
               el.scrollIntoView({ behavior: "auto", block: "end" })
             }
@@ -232,7 +232,7 @@ const Ongs = () => {
         )}
         {hasNext && (
           <HashLink
-            to="/lostanimals#pets_initial"
+            to={`ongs/${ongid}#pets_initial`}
             scroll={(el) =>
               el.scrollIntoView({ behavior: "auto", block: "end" })
             }
