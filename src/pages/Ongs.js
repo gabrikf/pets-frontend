@@ -27,6 +27,7 @@ const Ongs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
+    api.delete()
     api.get(`/ongs/${page}/${ongid}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
@@ -58,6 +59,7 @@ const Ongs = () => {
   };
 
   useEffect(() => {
+
     api
       .get(`/users/return/ongs`).then(response => setOngOptions(response.data)).then(() => setLoading(false))
     if(ongid === 0){
@@ -91,7 +93,7 @@ const Ongs = () => {
   }
   const handlefindOng = (e) => {
     e.preventDefault()
-    history.push(`/${e.target.value}`)
+    history.push(`ongs/${e.target.value}`)
   }
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
