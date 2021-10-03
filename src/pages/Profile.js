@@ -9,6 +9,9 @@ import api from '../services/api'
 import heroImg from '../assets/prof.png'
 import useAuth from '../hook/useAuth'
 import { ImSpinner3 } from 'react-icons/im'
+import { useFormik } from 'formik'
+import Alert from '../components/alert'
+
 
 
 const Profile = () => {
@@ -16,6 +19,7 @@ const Profile = () => {
   const [incidents, setIncidents] = useState([])
   const [photo, setPhoto] = useState('')
   const [loading, setLoading] = useState(true)
+  const [formErr, setFormErr ] = useState(false)
   const history = useHistory()
 
   useEffect(() => {
@@ -46,7 +50,26 @@ const Profile = () => {
       
     }).then(() => setLoading(false))
   }, [history, login, handleLogout])
+  const formik = useFormik({
+    initialValues: {
+      message: '',
+    },    
 
+    onSubmit: async (value) => {
+     try {
+      api.post('users/ongs/solicitation',value,{
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        }
+        
+      })
+      history.push('/')
+     }catch(err){
+      setFormErr(true)
+     }
+    }    
+  })
+  
   const handleUpload = async(id) => {
    setLoading(true)
     const formData  = new FormData()
@@ -104,15 +127,57 @@ const Profile = () => {
       
       setIncidents(incidents.filter(incident => incident.id_pet !== id))
     } catch (err) {
+     
       alert('Erro ao deletar caso, tente novamente.')
     }
   } 
+
   if (loading) {
     return (
       <div className='flex h-full w-full justify-center items-center'>
         <ImSpinner3 className='text-base mr-1'/> Loading
       </div>
     );
+  }
+  if (login.role === 'user'){
+    return (
+      <div className='bg-blue-50 dark:bg-gray-700'>
+      <div className=" w-full max-w-sm md:mt-20 mx-auto h-mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+       <div className="px-6 py-4">
+           <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Pets</h2>
+
+           <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Bem-vindo</h3>
+
+           <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Solicite acesso de ONG para poder cadastrar seus pets para adoção</p>
+
+           <form onSubmit={formik.handleSubmit}>
+               <div className="w-full mt-4">
+                   <textarea 
+                   name='message'
+                   value={formik.values.message}
+                   onChange={formik.handleChange}
+                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="email" placeholder="Email Address" aria-label="Email Address"
+                   />
+                    {/* {formik.errors.email && formik.touched.email && <i className='text-red-400'>{formik.errors.emaisl}</i>} */}
+               </div>
+
+               
+
+               {formErr && <Alert>Erro, tente novamente.</Alert>}
+               <div className="flex items-center justify-between mt-4">
+                  
+
+                   <button className="px-4 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none" type="submit">
+                       Solicitar Acesso
+                   </button>
+               </div>
+           </form>
+       </div>
+
+   </div>
+  
+   </div>
+    )
   }
   return (
     <div className='bg-blue-50 dark:bg-gray-700'>

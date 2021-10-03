@@ -227,7 +227,7 @@ const Details = () => {
           <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
           
           <Link
-            className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
+            className="md:m-4 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             to={`/${incident.animal_type === 'Cachorro' ? 'dogs' : 'cats' }`}
           >
             Voltar
