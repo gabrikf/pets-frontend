@@ -18,17 +18,18 @@ const Dogs = () => {
   const kindOfResults = localStorage.getItem("filter");
 
   const dislike = async (pet) => {
+    api.delete(`pets/likes/${login.userId}/${pet.id_pet}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
     delete pet.likes[login.userId];
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.delete(`pets/likes/${login.userId}/${pet.id_pet}`, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-    })
+   
     api.get(`/${page}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
@@ -40,17 +41,18 @@ const Dogs = () => {
   };
 
   const like = async (pet) => {
+    api.post(`pets/likes/${login.userId}/${pet.id_pet}`, '',{
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
     pet.likes[login.userId] = true;
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.post(`pets/likes/${login.userId}/${pet.id_pet}`, '',{
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-    })
+    
     api
       .get(`/${page}`)
 

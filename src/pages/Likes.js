@@ -64,25 +64,20 @@ const Likes = () => {
   };
 
   useEffect(() => {
-    setLoading(true)
+    console.log(login.userId)
+
     api
       .get(`/pets/likes/${login.userId}`)
       .then((response) => {
-        if (response.error) {
-          console.log(response.error);
-        }
-        console.log(response.data.data);
         const next = response.data.hasNext;
         response.data = response.data.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
           return pet;
         });
-
         setHasNext(next);
         setIncidents(response.data);
-      })
-      .then(() => setLoading(false));
-  }, [page, login]);
+      }).then(() => setLoading(false));
+      }, [page, login]);
   if (loading) {
     return (
       <div className="flex h-screen w-full justify-center items-center">
