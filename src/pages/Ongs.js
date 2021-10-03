@@ -28,7 +28,6 @@ const Ongs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.delete()
     api.get(`/ongs/${page}/${ongid}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
@@ -37,6 +36,11 @@ const Ongs = () => {
       console.log(response.data);
       setIncidents(response.data);
     });
+    api.delete(`pets/delete/likes/${pet.id_pet}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
   };
 
   const like = async (pet) => {
@@ -57,6 +61,11 @@ const Ongs = () => {
         console.log(response.data);
         setIncidents(response.data);
       });
+      api.post(`pets/new/likes/${pet.id_pet}`,'', {
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        },
+      })
   };
 
   useEffect(() => {
@@ -81,7 +90,7 @@ const Ongs = () => {
   }, [page, ongid]);
   if (loading) {
     return (
-      <div className="flex h-screen w-full justify-center items-center">
+      <div className="flex md:h-full h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );

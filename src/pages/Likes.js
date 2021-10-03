@@ -23,12 +23,8 @@ const Likes = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.delete(`pets/likes/${login.userId}/${pet.id_pet}`, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-    })
-    .get(`/pets/likes/${login.userId}`).then((response) => {
+    
+    api.get(`/likes/return/${page}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
@@ -36,32 +32,14 @@ const Likes = () => {
       console.log(response.data);
       setIncidents(response.data);
     });
-  };
-
-  const like = async (pet) => {
-    pet.likes[login.userId] = true;
-    await api.put(`/pets/${pet.id_pet}`, pet.likes, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-    });
-    api.post(`pets/likes/${login.userId}/${pet.id_pet}`,'', {
+    api.delete(`pets/delete/likes/${pet.id_pet}`, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
     })
-    api
-    .get(`/pets/likes/${login.userId}`)
-
-      .then((response) => {
-        response.data = response.data.data.map((pet) => {
-          pet.likes = JSON.parse(pet.likes);
-          return pet;
-        });
-        console.log(response.data);
-        setIncidents(response.data);
-      });
   };
+
+
 
   useEffect(() => {
     console.log(login.userId)
@@ -80,7 +58,7 @@ const Likes = () => {
       }, [page, login]);
   if (loading) {
     return (
-      <div className="flex h-screen w-full justify-center items-center">
+      <div className="flex md:h-full h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );
@@ -154,7 +132,7 @@ const Likes = () => {
                       />
                     ) : (
                       <AiOutlineHeart
-                        onClick={() => like(incident)}
+                        
                         className="cursor-pointer my-2 text-3xl text-red-300 "
                       />
                     )}

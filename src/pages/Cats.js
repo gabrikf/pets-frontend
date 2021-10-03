@@ -19,11 +19,6 @@ const Cats = () => {
   const kindOfResults = localStorage.getItem("filter");
 
   const dislike = async (pet) => {
-    api.delete(`pets/likes/${login.userId}/${pet.id_pet}`, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-    })
     delete pet.likes[login.userId];
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
       headers: {
@@ -39,14 +34,15 @@ const Cats = () => {
       console.log(response.data);
       setIncidents(response.data);
     });
-  };
-
-  const like = async (pet) => {
-    api.post(`pets/likes/${login.userId}/${pet.id_pet}`,'', {
+    api.delete(`pets/delete/likes/${pet.id_pet}`, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
     })
+  };
+
+  const like = async (pet) => {
+ 
     pet.likes[login.userId] = true;
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
       headers: {
@@ -55,16 +51,26 @@ const Cats = () => {
     });
     
     api
-      .get(`/${page}`)
-
+      .get(`/Gato/${page}`)
       .then((response) => {
+        if (response.error) {
+          console.log(response.error);
+        }
+        console.log(response.data.data);
+        const next = response.data.hasNext;
         response.data = response.data.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
           return pet;
         });
-        console.log(response.data);
+
+        setHasNext(next);
         setIncidents(response.data);
-      });
+      })
+      api.post(`pets/new/likes/${pet.id_pet}`,'', {
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        },
+      })
   };
 
   useEffect(() => {
@@ -89,7 +95,7 @@ const Cats = () => {
   }, [page]);
   if (loading) {
     return (
-     <div className="flex h-screen w-full justify-center items-center">
+     <div className="flex md:h-full h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );
