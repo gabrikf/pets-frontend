@@ -23,36 +23,38 @@ const Likes = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    
-    api.get(`/pets/likes/return/${page}`, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-      }).then((response) => {
-      response.data = response.data.data.map((pet) => {
-        pet.likes = JSON.parse(pet.likes);
-        return pet;
+
+    api
+      .get(`/pets/likes/return/${page}`, {
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        },
+      })
+      .then((response) => {
+        response.data = response.data.data.map((pet) => {
+          pet.likes = JSON.parse(pet.likes);
+          return pet;
+        });
+        console.log(response.data);
+        setIncidents(response.data);
       });
-      console.log(response.data);
-      setIncidents(response.data);
-    });
     api.delete(`pets/delete/likes/${pet.id_pet}`, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
-    })
+    });
   };
 
-
-
   useEffect(() => {
-    console.log(login.userId)
+    console.log(login.userId);
 
-    api.get(`/pets/likes/return/${page}`, {
-      headers: {
-        Authorization: `Bearer ${login.id}`,
-      },
-      }).then((response) => {
+    api
+      .get(`/pets/likes/return/${page}`, {
+        headers: {
+          Authorization: `Bearer ${login.id}`,
+        },
+      })
+      .then((response) => {
         const next = response.data.hasNext;
         response.data = response.data.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
@@ -60,8 +62,9 @@ const Likes = () => {
         });
         setHasNext(next);
         setIncidents(response.data);
-      }).then(() => setLoading(false));
-      }, [page, login]);
+      })
+      .then(() => setLoading(false));
+  }, [page, login]);
   if (loading) {
     return (
       <div className="flex md:h-full h-screen w-full justify-center items-center">
@@ -69,10 +72,10 @@ const Likes = () => {
       </div>
     );
   }
- 
+
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-       {!incidents[0] && !loading && (
+      {!incidents[0] && !loading && (
         <div className="container mt-10 px-6 mx-auto">
           <div className="w-full  text-white bg-indigo-600 ">
             <div className="container flex items-center justify-between px-6 py-4 mx-auto">
@@ -101,24 +104,22 @@ const Likes = () => {
           </div>
         </div>
       )}
-                
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
-        {incidents
-          .map((incident) => (
-            <div
-              key={incident.id_pet}
-              className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
-            >
-              {incident.images && incident.images.url && (
-                <img
-                  className="object-cover object-center w-full h-80"
-                  src={incident.images.url}
-                  alt="avatar"
-                />
-              )}
 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
+        {incidents.map((incident) => (
+          <div
+            key={incident.id_pet}
+            className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
+          >
+            {incident.images && incident.images.url && (
+              <img
+                className="object-cover object-center w-full h-80"
+                src={incident.images.url}
+                alt="avatar"
+              />
+            )}
+            <Link className="cursor-pointer" to={`details/${incident.id_pet}`}>
               <div className="flex items-center px-6 py-3 bg-gray-900">
-              <Link className="cursor-pointer"  to={`details/${incident.id_pet}`}>
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
@@ -127,85 +128,80 @@ const Likes = () => {
                 <h1 className="mx-3 text-lg font-semibold text-white">
                   {incident.pet_name}
                 </h1>
-                </Link>
+              </div>
+            </Link>
+            <div className="px-6 py-4">
+              {login && (
+                <div>
+                  {incident.likes[login.userId] ? (
+                    <AiFillHeart
+                      onClick={() => dislike(incident)}
+                      className="my-2 text-3xl text-red-600 cursor-pointer"
+                    />
+                  ) : (
+                    <AiOutlineHeart className="cursor-pointer my-2 text-3xl text-red-300 " />
+                  )}
+                  <p className="text-sm font-semibold text-gray-800 dark:text-white">
+                    {" "}
+                    {Object.keys(incident.likes).length} curtida
+                    {Object.keys(incident.likes).length !== 1 && "s"}
+                  </p>
+                </div>
+              )}
+              <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
+                {incident.name}
+              </h1>
+              <div className="py-2 text-gray-700 dark:text-gray-400">
+                <strong className="text-black dark:text-white">
+                  Idade do pet:{" "}
+                </strong>
+                {incident.pet_age}
+              </div>
+              <div className="h-24 py-2 text-gray-700 dark:text-gray-400">
+                <strong className="text-black dark:text-white">
+                  Descrição do pet:{" "}
+                </strong>{" "}
+                <p>{incident.description}</p>
               </div>
 
-              <div className="px-6 py-4">
-                {login && (
-                  <div>
-                    {incident.likes[login.userId] ? (
-                      <AiFillHeart
-                        onClick={() => dislike(incident)}
-                        className="my-2 text-3xl text-red-600 cursor-pointer"
-                      />
-                    ) : (
-                      <AiOutlineHeart
-                        
-                        className="cursor-pointer my-2 text-3xl text-red-300 "
-                      />
-                    )}
-                    <p className="text-sm font-semibold text-gray-800 dark:text-white">
-                      {" "}
-                      {Object.keys(incident.likes).length} curtida
-                      {Object.keys(incident.likes).length > 1 && "s"}
-                    </p>
-                  </div>
-                )}
-                <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  {incident.name}
-                </h1>
-                <div className="py-2 text-gray-700 dark:text-gray-400">
-                  <strong className="text-black dark:text-white">
-                    Idade do pet:{" "}
-                  </strong>
-                  {incident.pet_age}
-                </div>
-                <div className="h-24 py-2 text-gray-700 dark:text-gray-400">
-                  <strong className="text-black dark:text-white">
-                    Descrição do pet:{" "}
-                  </strong>{" "}
-                  <p>{incident.description}</p>
-                </div>
-
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                  <a
-                    className="cursor-pointer"
-                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaWhatsapp className=" text-xl" />
-                  </a>
-                  <a
-                    className="cursor-pointer"
-                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <h1 className="px-2 text-sm">
-                      ({incident.whatsapp.slice(0, 2)}){" "}
-                      {incident.whatsapp.slice(2, 7)}-
-                      {incident.whatsapp.slice(7)}
-                    </h1>
-                  </a>
-                </div>
-
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                  <HiOutlineLocationMarker className=" text-xl" />
-
+              <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <a
+                  className="cursor-pointer"
+                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <FaWhatsapp className=" text-xl" />
+                </a>
+                <a
+                  className="cursor-pointer"
+                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <h1 className="px-2 text-sm">
-                    {incident.city}, {incident.neighborhood}
+                    ({incident.whatsapp.slice(0, 2)}){" "}
+                    {incident.whatsapp.slice(2, 7)}-{incident.whatsapp.slice(7)}
                   </h1>
-                </div>
+                </a>
+              </div>
 
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                  <AiOutlineMail className=" text-xl" />
+              <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <HiOutlineLocationMarker className=" text-xl" />
 
-                  <h1 className="px-2 text-sm">{incident.email}</h1>
-                </div>
+                <h1 className="px-2 text-sm">
+                  {incident.city}, {incident.neighborhood}
+                </h1>
+              </div>
+
+              <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <AiOutlineMail className=" text-xl" />
+
+                <h1 className="px-2 text-sm">{incident.email}</h1>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (

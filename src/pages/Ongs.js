@@ -140,9 +140,9 @@ const Ongs = () => {
                   alt="avatar"
                 />
               )}
-
+  <Link className="cursor-pointer" to={`details/${incident.id_pet}`}>
               <div className="flex items-center px-6 py-3 bg-gray-900">
-              <Link className="cursor-pointer" to={`details/${incident.id_pet}`}>
+            
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
@@ -151,9 +151,9 @@ const Ongs = () => {
                 <h1 className="mx-3 text-lg font-semibold text-white">
                   {incident.pet_name}
                 </h1>
-                </Link>
+           
               </div>
-
+              </Link>
               <div className="px-6 py-4">
               <div>
                   {login && (
@@ -175,7 +175,7 @@ const Ongs = () => {
                     <p className="text-sm font-semibold text-gray-800 dark:text-white">
                       {" "}
                       {Object.keys(incident.likes).length} curtida
-                      {Object.keys(incident.likes).length > 1 && "s"}
+                      {Object.keys(incident.likes).length !== 1 && "s"}
                     </p>
                   </div>
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
