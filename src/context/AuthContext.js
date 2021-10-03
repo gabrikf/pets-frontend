@@ -28,13 +28,12 @@ export function AuthContextProvider(props) {
       payload = JSON.parse(payload)
       const userId = payload.id[0].id
       const userEmail = payload.email
-      const userRole = payload.role
+      // const userRole = payload.role
       const expiresIn = payload.exp
 
       setLogIn({
         id: token,
         userId,
-        userRole,
         userEmail,
         expiresIn
       })
