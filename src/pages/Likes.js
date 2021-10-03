@@ -24,7 +24,7 @@ const Likes = () => {
       },
     });
     
-    api.get(`/likes/return/${page}`, {
+    api.get(`/pets/likes/return/${page}`, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
@@ -48,7 +48,7 @@ const Likes = () => {
   useEffect(() => {
     console.log(login.userId)
 
-    api.get(`/likes/return/${page}`, {
+    api.get(`/pets/likes/return/${page}`, {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
