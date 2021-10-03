@@ -24,7 +24,11 @@ const Likes = () => {
       },
     });
     
-    api.get(`/likes/return/${page}`).then((response) => {
+    api.get(`/likes/return/${page}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+      }).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
@@ -44,9 +48,11 @@ const Likes = () => {
   useEffect(() => {
     console.log(login.userId)
 
-    api
-      .get(`/pets/likes/${login.userId}`)
-      .then((response) => {
+    api.get(`/likes/return/${page}`, {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+      }).then((response) => {
         const next = response.data.hasNext;
         response.data = response.data.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
