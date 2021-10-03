@@ -12,8 +12,8 @@ import Cats from './pages/Cats'
 import Ongs from './pages/Ongs'
 import Likes from './pages/Likes'
 import Details from './pages/Details'
-import Admin from './pages/admin'
-import useAuth from "../hook/useAuth";
+import Admin from './pages/Admin'
+import useAuth from "./hook/useAuth"
 
 const Routes = () => {
   const { login } = useAuth();
