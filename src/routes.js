@@ -32,7 +32,7 @@ const Routes = () => {
         <Route path="/details/:id" component={Details}/>
         <Route path="/login" exact component={Login}/>
         <Route path="/users" component={Users}/>
-        {login.role === 'superUser' && <Route path="/admin" exact component={Admin}/>}
+        {login && login.role === 'superUser' && <Route path="/admin" exact component={Admin}/>}
         <Route path="/profile" component={Profile}/>
         <Route path="/petregister" component={PetRegister}/>
       </Switch>
