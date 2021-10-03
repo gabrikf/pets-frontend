@@ -49,7 +49,7 @@ const Details = () => {
       .get(`/details/${petId}`)
 
       .then((response) => {
-        response.data = response.data.data.map((pet) => {
+        response.data = response.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
           return pet;
         });
@@ -120,8 +120,9 @@ const Details = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 items-start  lg:mx-20 mx-5 ">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 items-start justify-items-center lg:mx-20 mx-5 ">
         {incidents.map((incident) => (
+          <>
           <div
             key={incident.id_pet}
             className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
@@ -221,17 +222,19 @@ const Details = () => {
                 <h1 className="px-2 text-sm">{incident.email}</h1>
               </div>
             </div>
-            <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
-          
-                <Link
-                  className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
-                  to={`/${incident.animal_type}`}
-                >
-                  Voltar
-                </Link>
-
-            </div>
+            
           </div>
+          <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
+          
+          <Link
+            className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
+            to={`/${incident.animal_type === 'Cachorro' ? 'dogs' : 'cats' }`}
+          >
+            Voltar
+          </Link>
+
+      </div>
+      </>
         ))}
       </div>
     </div>
