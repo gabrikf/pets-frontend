@@ -20,6 +20,7 @@ const Header = () => {
 
   const { login, handleLogout } = useAuth();
   useEffect(() => {
+    console.log(login.role)
     let nav;
     if (!login) {
       nav = [
