@@ -6,15 +6,17 @@ import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
 import useAuth from "../hook/useAuth";
 import { ImSpinner3 } from "react-icons/im";
+import { useParams } from "react-router-dom";
 import heroImg from "../assets/prof.png";
-import { Link } from 'react-router-dom'
-const Dogs = () => {
+
+const Details = () => {
   const { login } = useAuth();
   const [incidents, setIncidents] = useState([]);
-  const [page, setPage] = useState(0);
-  const [hasNext, setHasNext] = useState(false);
   const [loading, setLoading] = useState(true);
 
+
+  const params = useParams();
+  const petId = params.id;
   const dislike = async (pet) => {
     delete pet.likes[login.userId];
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
@@ -22,8 +24,7 @@ const Dogs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-   
-    api.get(`/Cachorro/${page}`).then((response) => {
+    api.get(`/details/$${petId}`).then((response) => {
       response.data = response.data.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
@@ -35,7 +36,7 @@ const Dogs = () => {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
-    })
+    });
   };
 
   const like = async (pet) => {
@@ -45,9 +46,8 @@ const Dogs = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    
     api
-      .get(`/Cachorro/${page}`)
+    .get(`/details/$${petId}`)
 
       .then((response) => {
         response.data = response.data.data.map((pet) => {
@@ -57,40 +57,38 @@ const Dogs = () => {
         console.log(response.data);
         setIncidents(response.data);
       });
-      api.post(`pets/new/likes/${pet.id_pet}`,'', {
-        headers: {
-          Authorization: `Bearer ${login.id}`,
-        },
-      })
+    api.post(`pets/new/likes/${pet.id_pet}`, "", {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    });
   };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     api
-      .get(`/Cachorro/${page}`)
+      .get(`/details/$${petId}`)
       .then((response) => {
         if (response.error) {
           console.log(response.error);
         }
-        console.log(response.data.data);
-        const next = response.data.hasNext;
-        response.data = response.data.data.map((pet) => {
+        
+        response.data = response.data.map((pet) => {
           pet.likes = JSON.parse(pet.likes);
           return pet;
         });
-
-        setHasNext(next);
         setIncidents(response.data);
       })
       .then(() => setLoading(false));
-  }, [page]);
+  }, [petId]);
   if (loading) {
     return (
- <div className="flex md:h-full h-screen w-full justify-center items-center">
+      <div className="flex md:h-full h-screen w-full justify-center items-center">
         <ImSpinner3 className="text-base mr-1" /> Loading
- </div>
+      </div>
     );
   }
+
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
       {!incidents[0] && !loading && (
@@ -122,7 +120,8 @@ const Dogs = () => {
           </div>
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
+
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 items-start  lg:mx-20 mx-5 ">
         {incidents
           .map((incident) => (
             <div
@@ -138,7 +137,6 @@ const Dogs = () => {
               )}
 
               <div className="flex items-center px-6 py-3 bg-gray-900">
-              <Link to={`details/${incident.id_pet}`}>
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
@@ -147,11 +145,11 @@ const Dogs = () => {
                 <h1 className="mx-3 text-lg font-semibold text-white">
                   {incident.pet_name}
                 </h1>
-                </Link>
               </div>
 
               <div className="px-6 py-4">
-              <div>
+           
+                  <div>
                   {login && (
                     <>
                     {incident.likes[login.userId] ? (
@@ -174,10 +172,9 @@ const Dogs = () => {
                       {Object.keys(incident.likes).length > 1 && "s"}
                     </p>
                   </div>
+             
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  <Link to={`ongs/${incident.users_id}`}>
                   {incident.name}
-                  </Link>
                 </h1>
                 <div className="py-2 text-gray-700 dark:text-gray-400">
                   <strong className="text-black dark:text-white">
@@ -232,26 +229,9 @@ const Dogs = () => {
             </div>
           ))}
       </div>
-      <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
-        {page !== 0 && (
-          <button
-            className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
-            onClick={() => setPage(page - 1)}
-          >
-            Página anterior
-          </button>
-        )}
-        {hasNext && (
-          <button
-            className="md:m-4   w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
-            onClick={() => setPage(page + 1)}
-          >
-            Próxima página
-          </button>
-        )}
-      </div>
+   
     </div>
   );
 };
 
-export default Dogs;
+export default Details;

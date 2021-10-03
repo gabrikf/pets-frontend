@@ -7,6 +7,7 @@ import api from "../services/api";
 import useAuth from "../hook/useAuth";
 import { ImSpinner3 } from "react-icons/im";
 import heroImg from "../assets/prof.png";
+import { Link } from "react-router-dom";
 
 const Likes = () => {
   const { login } = useAuth();
@@ -117,6 +118,7 @@ const Likes = () => {
               )}
 
               <div className="flex items-center px-6 py-3 bg-gray-900">
+              <Link to={`details/${incident.id_pet}`}>
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
@@ -125,6 +127,7 @@ const Likes = () => {
                 <h1 className="mx-3 text-lg font-semibold text-white">
                   {incident.pet_name}
                 </h1>
+                </Link>
               </div>
 
               <div className="px-6 py-4">

@@ -152,6 +152,7 @@ const Cats = () => {
               )}
 
               <div className="flex items-center px-6 py-3 bg-gray-900">
+                <Link to={`details/${incident.id_pet}`}>
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
@@ -160,11 +161,13 @@ const Cats = () => {
                 <h1 className="mx-3 text-lg font-semibold text-white">
                   {incident.pet_name}
                 </h1>
+                </Link>
               </div>
 
               <div className="px-6 py-4">
-                {login && (
-                  <div>
+              <div>
+                  {login && (
+                    <>
                     {incident.likes[login.userId] ? (
                       <AiFillHeart
                         onClick={() => dislike(incident)}
@@ -175,14 +178,16 @@ const Cats = () => {
                         onClick={() => like(incident)}
                         className="cursor-pointer my-2 text-3xl text-red-300 "
                       />
+                     
                     )}
+                     </>
+                        )}
                     <p className="text-sm font-semibold text-gray-800 dark:text-white">
                       {" "}
                       {Object.keys(incident.likes).length} curtida
                       {Object.keys(incident.likes).length > 1 && "s"}
                     </p>
                   </div>
-                )}
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
                 <Link to={`ongs/${incident.users_id}`}>
                   {incident.name}
