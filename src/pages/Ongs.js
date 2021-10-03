@@ -5,9 +5,9 @@ import { GiCat, GiSittingDog } from "react-icons/gi";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
 import useAuth from "../hook/useAuth";
-import { HashLink } from "react-router-hash-link";
+
 import { ImSpinner3 } from "react-icons/im";
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import heroImg from "../assets/prof.png";
 
 const Ongs = () => {
@@ -19,8 +19,8 @@ const Ongs = () => {
 
   const kindOfResults = localStorage.getItem("filter");
 
-  const params = useParams()
-  const ongid = params.id
+  const params = useParams();
+  const ongid = params.id;
   const dislike = async (pet) => {
     delete pet.likes[login.userId];
     await api.put(`/pets/${pet.id_pet}`, pet.likes, {
@@ -40,7 +40,7 @@ const Ongs = () => {
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
-    })
+    });
   };
 
   const like = async (pet) => {
@@ -51,7 +51,7 @@ const Ongs = () => {
       },
     });
     api
-    .get(`/ongs/${page}/${ongid}`)
+      .get(`/ongs/${page}/${ongid}`)
 
       .then((response) => {
         response.data = response.data.data.map((pet) => {
@@ -61,15 +61,15 @@ const Ongs = () => {
         console.log(response.data);
         setIncidents(response.data);
       });
-      api.post(`pets/new/likes/${pet.id_pet}`,'', {
-        headers: {
-          Authorization: `Bearer ${login.id}`,
-        },
-      })
+    api.post(`pets/new/likes/${pet.id_pet}`, "", {
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    });
   };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     api
       .get(`/ongs/${page}/${ongid}`)
       .then((response) => {
@@ -95,10 +95,10 @@ const Ongs = () => {
       </div>
     );
   }
- 
+
   return (
     <div id="pets_initial" className="bg-blue-50 dark:bg-gray-700">
-       {!incidents[0] && !loading && (
+      {!incidents[0] && !loading && (
         <div className="container mt-10 px-6 mx-auto">
           <div className="w-full  text-white bg-indigo-600 ">
             <div className="container flex items-center justify-between px-6 py-4 mx-auto">
@@ -127,7 +127,7 @@ const Ongs = () => {
           </div>
         </div>
       )}
-                
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
         {incidents
           .filter(
@@ -237,28 +237,20 @@ const Ongs = () => {
       </div>
       <div className="text-center mx-10 bg-blue-50 dark:bg-gray-700 p-2">
         {page !== 0 && (
-          <HashLink
-          to={`ongs/${ongid}#pets_initial`}
-            scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
-            }
+          <button
             className="md:m-2 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page - 1)}
           >
             Página anterior
-          </HashLink>
+          </button>
         )}
         {hasNext && (
-          <HashLink
-            to={`ongs/${ongid}#pets_initial`}
-            scroll={(el) =>
-              el.scrollIntoView({ behavior: "auto", block: "end" })
-            }
+          <button
             className="md:m-4   w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => setPage(page + 1)}
           >
             Próxima página
-          </HashLink>
+          </button>
         )}
       </div>
     </div>
