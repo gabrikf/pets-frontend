@@ -26,15 +26,16 @@ export function AuthContextProvider(props) {
       let payload = token.split(".")[1]
       payload = atob(payload)
       payload = JSON.parse(payload)
-      const userId = payload.id[0].id
+      const userId = payload.id
       const userEmail = payload.email
-      // const userRole = payload.role
+      const userRole = payload.role
       const expiresIn = payload.exp
 
       setLogIn({
         id: token,
         userId,
         userEmail,
+        userRole,
         expiresIn
       })
       localStorage.setItem('token', token)
