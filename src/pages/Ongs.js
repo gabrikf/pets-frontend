@@ -5,7 +5,6 @@ import { GiCat, GiSittingDog } from "react-icons/gi";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import api from "../services/api";
 import useAuth from "../hook/useAuth";
-
 import { ImSpinner3 } from "react-icons/im";
 import { useParams } from "react-router-dom";
 import heroImg from "../assets/prof.png";
@@ -17,7 +16,6 @@ const Ongs = () => {
   const [hasNext, setHasNext] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const kindOfResults = localStorage.getItem("filter");
 
   const params = useParams();
   const ongid = params.id;
@@ -130,10 +128,6 @@ const Ongs = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  lg:mx-20 mx-5 ">
         {incidents
-          .filter(
-            (incident) =>
-              incident.animal_type === kindOfResults || !kindOfResults
-          )
           .map((incident) => (
             <div
               key={incident.id_pet}
