@@ -23,7 +23,7 @@ const Details = () => {
         Authorization: `Bearer ${login.id}`,
       },
     });
-    api.get(`/details/$${petId}`).then((response) => {
+    api.get(`/details/${petId}`).then((response) => {
       response.data = response.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
@@ -46,7 +46,7 @@ const Details = () => {
       },
     });
     api
-      .get(`/details/$${petId}`)
+      .get(`/details/${petId}`)
 
       .then((response) => {
         response.data = response.data.data.map((pet) => {
@@ -66,7 +66,7 @@ const Details = () => {
   useEffect(() => {
     setLoading(true);
     api
-      .get(`/details/$${petId}`)
+      .get(`/details/${petId}`)
       .then((response) => {
         if (response.error) {
           console.log(response.error);
