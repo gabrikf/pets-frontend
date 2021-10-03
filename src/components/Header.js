@@ -28,13 +28,32 @@ const Header = () => {
         { name: "Gatos", href: "/cats", current: "" },
       ];
     } else {
-      nav = [
-        { name: "Cachorros", href: "/dogs", current: "" },
-        { name: "Gatos", href: "/cats", current: "" },
-        { name: "Meus pets", href: "/profile", current: "" },
-        { name: "Curtidas", href: `/likes`, current: "" },
-        { name: "Cadastrar pet", href: "/petregister", current: "" },
-      ];
+      if(login.role === 'ong'){
+        nav = [
+          { name: "Cachorros", href: "/dogs", current: "" },
+          { name: "Gatos", href: "/cats", current: "" },
+          { name: "Meus pets", href: "/profile", current: "" },
+          { name: "Curtidas", href: `/likes`, current: "" },
+          { name: "Cadastrar pet", href: "/petregister", current: "" },
+        ];
+      } else if(login.role === 'superUser'){
+        nav = [
+          { name: "Cachorros", href: "/dogs", current: "" },
+          { name: "Gatos", href: "/cats", current: "" },
+          { name: "Meus pets", href: "/profile", current: "" },
+          { name: "Curtidas", href: `/likes`, current: "" },
+          { name: "Cadastrar pet", href: "/petregister", current: "" },
+          { name: "Admin", href: "/admin", current: "" }
+        ];
+      }else {
+        nav = [
+          { name: "Cachorros", href: "/dogs", current: "" },
+          { name: "Gatos", href: "/cats", current: "" },
+          { name: "Meus pets", href: "/profile", current: "" },
+          { name: "Curtidas", href: `/likes`, current: "" }
+        ];
+      }
+      
     }
     setNavigationLogin([
       { name: "Login", href: "/login" },

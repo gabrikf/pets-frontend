@@ -12,8 +12,11 @@ import Cats from './pages/Cats'
 import Ongs from './pages/Ongs'
 import Likes from './pages/Likes'
 import Details from './pages/Details'
+import Admin from './pages/admin'
+import useAuth from "../hook/useAuth";
 
 const Routes = () => {
+  const { login } = useAuth();
   return (
     <BrowserRouter>
     <div className='py-20'> 
@@ -29,6 +32,7 @@ const Routes = () => {
         <Route path="/details/:id" component={Details}/>
         <Route path="/login" exact component={Login}/>
         <Route path="/users" component={Users}/>
+        {login.role === 'superUser' && <Route path="/admin" exact component={Admin}/>}
         <Route path="/profile" component={Profile}/>
         <Route path="/petregister" component={PetRegister}/>
       </Switch>
