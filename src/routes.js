@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import Cats from './pages/Cats'
 import Ongs from './pages/Ongs'
 import Likes from './pages/Likes'
+import Details from './pages/Details'
 
 const Routes = () => {
   return (
@@ -25,6 +26,7 @@ const Routes = () => {
         <Route path="/cats" exact component={Cats}/>
         <Route path="/likes" exact component={Likes}/>
         <Route path="/ongs/:id" component={Ongs}/>
+        <Route path="/details/:id" component={Details}/>
         <Route path="/login" exact component={Login}/>
         <Route path="/users" component={Users}/>
         <Route path="/profile" component={Profile}/>

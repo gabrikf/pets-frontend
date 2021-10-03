@@ -138,7 +138,7 @@ const Dogs = () => {
               )}
 
               <div className="flex items-center px-6 py-3 bg-gray-900">
-              <Link to={`details/${incident.id_pet}`}>
+              <Link className="cursor-pointer"  to={`details/${incident.id_pet}`}>
                 {incident.animal_type === "Cachorro" ? (
                   <GiSittingDog className="text-white" />
                 ) : (
