@@ -25,7 +25,7 @@ const Details = () => {
       },
     });
     api.get(`/details/$${petId}`).then((response) => {
-      response.data = response.data.data.map((pet) => {
+      response.data = response.data.map((pet) => {
         pet.likes = JSON.parse(pet.likes);
         return pet;
       });
