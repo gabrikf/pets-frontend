@@ -139,7 +139,7 @@ const Profile = () => {
       </div>
     );
   }
-  if (login.userRole === 'user'){
+  if (login && login.userRole === 'user'){
     return (
       <div className='bg-blue-50 dark:bg-gray-700'>
       <div className=" w-full max-w-sm md:mt-20 mx-auto h-mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">

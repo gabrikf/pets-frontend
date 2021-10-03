@@ -20,7 +20,6 @@ const Header = () => {
 
   const { login, handleLogout } = useAuth();
   useEffect(() => {
-    console.log(login.userRole)
     let nav;
     if (!login) {
       nav = [
@@ -29,7 +28,7 @@ const Header = () => {
         { name: "Gatos", href: "/cats", current: "" },
       ];
     } else {
-      if(login.userRole === 'ong'){
+      if(login && login.userRole === 'ong'){
         nav = [
           { name: "Cachorros", href: "/dogs", current: "" },
           { name: "Gatos", href: "/cats", current: "" },
@@ -37,7 +36,7 @@ const Header = () => {
           { name: "Curtidas", href: `/likes`, current: "" },
           { name: "Cadastrar pet", href: "/petregister", current: "" },
         ];
-      } else if(login.userRole === 'superUser'){
+      } else if(login && login.userRole === 'superUser'){
         nav = [
           { name: "Cachorros", href: "/dogs", current: "" },
           { name: "Gatos", href: "/cats", current: "" },
