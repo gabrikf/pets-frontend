@@ -25,7 +25,7 @@ const Routes = () => {
         <Route path="/cats" exact component={Cats}/>
         <Route path="/likes" exact component={Likes}/>
         <Route path="/ongs/:id" component={Ongs}/>
-        <Route path="/login" component={Login}/>
+        <Route path="/login" exact component={Login}/>
         <Route path="/users" component={Users}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/petregister" component={PetRegister}/>
