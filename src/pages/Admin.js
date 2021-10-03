@@ -30,6 +30,14 @@ api.get('users/ongs/solicitation',{
         Authorization: `Bearer ${login.id}`,
       },
     }).then(api.delete(`users/ongs/solicitation/${id}`))
+    api.get('users/ongs/solicitation',{
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    }).then(response => {
+      setIncidents(response.data)
+      setLoading(false)
+    })
   }
   if (loading) {
     return (
