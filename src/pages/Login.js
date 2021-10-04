@@ -9,8 +9,15 @@ import * as Yup from 'yup'
 
 const loginSchema =  Yup.object().shape({
   email: Yup.string()
-          .email('Por favor, digite um e-mail válido')
-          .required('Por favor, informe um e-mail.'),
+              .email('Por favor, digite um e-mail válido')
+              .required('Por favor, informe um e-mail.')
+              .test('is-unique', 'Por favor, utileze outro email. Este ja está em uso', async(value) => {
+                const ret = await api.get(`/users/${value}`) 
+                if(ret.data[0]){
+                  return true
+                }
+                return false
+            }),
   passwd: Yup.string()
           .required('Por favor, informe uma senha.'),
 })
@@ -37,11 +44,13 @@ useEffect(() => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
        try {
-                const response = await api.post('users/login', values).catch(() => setSignInError(true))
-                console.log(response)
+                const response = await api.post('users/login', values)
+                if(response.data && response.data.error){
+                  setSignInError(true)
+                }
                 handleSetLogin(response.data.token)
                 history.push('/')
-            } catch {
+            } catch(e) {
                 setSignInError(true)
             }
     }    
@@ -78,7 +87,7 @@ useEffect(() => {
                      {formik.errors.passwd && formik.touched.passwd && <i className='text-red-400'>{formik.errors.passwd}</i>}
                 </div>
 
-                {signInError && <Alert>Erro, tente novamente.</Alert>}
+                {signInError || (formik.errors.email && formik.touched.email) ? <Alert>Erro, tente novamente.</Alert> : ''}
                 <div className="flex items-center justify-between mt-4">
                    
 
