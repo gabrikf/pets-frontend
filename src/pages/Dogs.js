@@ -149,7 +149,7 @@ const Dogs = () => {
                   <GiCat className="text-white" />
                 )}
                 <h1 className="mx-3 text-lg font-semibold text-white">
-                  {incident.pet_name}
+                {incident.pet_name.length > 0 ? incident.pet_name : 'Sem nome até o momento'}
                 </h1>
               </div>
             </Link>
