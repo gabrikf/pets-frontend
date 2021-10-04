@@ -135,7 +135,7 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="flex h-full w-full justify-center items-center">
+      <div className="flex h-full w-full justify-center items-center h-screen md:h-full">
         <ImSpinner3 className="text-base mr-1" /> Loading
       </div>
     );
