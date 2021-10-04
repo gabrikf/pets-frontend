@@ -38,15 +38,14 @@ useEffect(() => {
     onSubmit: async (values) => {
       try {
       const response = await api.post('users/login', values)
-     if(!response.data.error){
+     if(response.data.error){
+      setSignInError(true)
+      return
+     }
       handleSetLogin(response.data.token)
       console.log(response.data.token)
       history.push('/profile')
-     }
-      
-       else {
-        setSignInError(true)
-       }
+  
       }catch(err){
         setSignInError(true)
       }
