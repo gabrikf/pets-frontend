@@ -23,6 +23,7 @@ export function AuthContextProvider(props) {
 
   
     const handleSetLogin = (token) => {
+	    try{
       let payload = token.split(".")[1]
       payload = atob(payload)
       payload = JSON.parse(payload)
@@ -39,6 +40,9 @@ export function AuthContextProvider(props) {
         expiresIn
       })
       localStorage.setItem('token', token)
+	    }catch(e){
+		  handleLogout()  
+	    }
     }
   
    
