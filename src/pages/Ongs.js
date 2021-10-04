@@ -203,7 +203,7 @@ const Ongs = () => {
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                   <a
                     className="cursor-pointer"
-                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) https://www.petsjaragua.com.br/details/${incident.id_pet} - peguei seu contato do site petsjaragua`}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -211,7 +211,7 @@ const Ongs = () => {
                   </a>
                   <a
                     className="cursor-pointer"
-                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) ${incident.pet_name}, peguei seu contato do site petsjaragua`}
+                    href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) https://www.petsjaragua.com.br/details/${incident.id_pet} - peguei seu contato do site petsjaragua`}
                     target="_blank"
                     rel="noreferrer"
                   >
