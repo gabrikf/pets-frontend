@@ -128,13 +128,19 @@ const Dogs = () => {
             key={incident.id_pet}
             className="m-4 max-w-sm  overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
           >
-            {incident.images && incident.images.url && (
+            {incident.images && incident.images.url ? (
               <img
                 className="object-cover object-center w-full h-80"
                 src={incident.images.url}
                 alt="avatar"
               />
-            )}
+            ):
+            <img
+            className="object-cover object-center w-full h-80"
+            src='https://petsjaragua.s3.amazonaws.com/gabrielkochf%40gmail.com-dogdefault.jpeg-Mon_Oct_04_2021_00%3A51%3A57_GMT%2B0000_(Coordinated_Universal_Time)'
+            alt="avatar"
+          />
+          }
             <Link className="cursor-pointer" to={`details/${incident.id_pet}`}>
               <div className="flex items-center px-6 py-3 bg-gray-900">
                 {incident.animal_type === "Cachorro" ? (
