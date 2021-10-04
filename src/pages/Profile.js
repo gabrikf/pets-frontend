@@ -188,9 +188,9 @@ const Profile = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-blue-50 dark:bg-gray-700">
+          <div className="bg-blue-50 dark:bg-gray-700 h-screen md:h-full">
             <Alert>
-              Você já solicitou o acesso, aguarde que em breve iremos retornar.
+              Você já solicitou o acesso, aguarde, que em breve iremos retornar.
             </Alert>
           </div>
         )}
