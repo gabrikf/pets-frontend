@@ -34,7 +34,7 @@ const Header = () => {
           { name: "Gatos", href: "/cats", current: "" },
           { name: "Meus pets", href: "/profile", current: "" },
           { name: "Curtidas", href: `/likes`, current: "" },
-          { name: "Cadastrar pet", href: "/petregister", current: "" },
+          { name: "Cadastrar", href: "/petregister", current: "" },
         ];
       } else if(login && login.userRole === 'superUser'){
         nav = [
@@ -42,14 +42,14 @@ const Header = () => {
           { name: "Gatos", href: "/cats", current: "" },
           { name: "Meus pets", href: "/profile", current: "" },
           { name: "Curtidas", href: `/likes`, current: "" },
-          { name: "Cadastrar pet", href: "/petregister", current: "" },
+          { name: "Cadastrar", href: "/petregister", current: "" },
           { name: "Admin", href: "/admin", current: "" }
         ];
       }else {
         nav = [
           { name: "Cachorros", href: "/dogs", current: "" },
           { name: "Gatos", href: "/cats", current: "" },
-          { name: "Meus pets", href: "/profile", current: "" },
+          { name: "Sou Ong", href: "/profile", current: "" },
           { name: "Curtidas", href: `/likes`, current: "" }
         ];
       }
