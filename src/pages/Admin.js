@@ -29,7 +29,12 @@ api.get('users/ongs/solicitation',{
       headers: {
         Authorization: `Bearer ${login.id}`,
       },
-    }).then(api.delete(`users/ongs/solicitation/${id}`))
+    })
+    api.delete(`users/ongs/solicitation/${id}`,{
+      headers: {
+        Authorization: `Bearer ${login.id}`,
+      },
+    })
     api.get('users/ongs/solicitation',{
       headers: {
         Authorization: `Bearer ${login.id}`,
@@ -83,6 +88,12 @@ api.get('users/ongs/solicitation',{
                   >
                     WhatsApp
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-white"
+                  >
+                    Mensagem
+                  </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Tornar Ong</span>
                   </th>
@@ -95,6 +106,7 @@ api.get('users/ongs/solicitation',{
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{person.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{person.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{person.whatsapp}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{person.message}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> <button
             className="md:m-4 w-full px-3 py-2 mt-6 text-xs font-medium text-white uppercase transition-colors duration-200 transform bg-indigo-600 rounded-md lg:w-auto hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
             onClick={() => turnOng(person.ongId)}    

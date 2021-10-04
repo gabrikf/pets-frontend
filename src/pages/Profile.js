@@ -56,10 +56,11 @@ const Profile = () => {
     },    
 
     onSubmit: async (values) => {
-     try {
       const config = {
         headers: { Authorization: `Bearer ${login.id}` }
     };
+     try {
+        console.log(values)
         await api.post('/pets', values, config)
         history.push('/dogs')
   
