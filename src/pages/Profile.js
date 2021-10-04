@@ -52,18 +52,17 @@ const Profile = () => {
   }, [history, login, handleLogout])
   const formik = useFormik({
     initialValues: {
-      message: '',
+      message: ''
     },    
 
-    onSubmit: async (value) => {
+    onSubmit: async (values) => {
      try {
-      api.post('users/ongs/solicitation',value,{
-        headers: {
-          Authorization: `Bearer ${login.id}`,
-        }
-        
-      })
-      history.push('/')
+      const config = {
+        headers: { Authorization: `Bearer ${login.id}` }
+    };
+        await api.post('/pets', values, config)
+        history.push('/profile')
+  
      }catch(err){
       setFormErr(true)
      }
@@ -156,7 +155,7 @@ const Profile = () => {
                    name='message'
                    value={formik.values.message}
                    onChange={formik.handleChange}
-                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="email" placeholder="Email Address" aria-label="Email Address"
+                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="text" placeholder='escreva uma mensagem' aria-label="Email Address"
                    />
                     {/* {formik.errors.email && formik.touched.email && <i className='text-red-400'>{formik.errors.emaisl}</i>} */}
                </div>
