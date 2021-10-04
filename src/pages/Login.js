@@ -36,18 +36,14 @@ useEffect(() => {
     },    
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-      try {
-      const response = await api.post('users/login', values)
-     if(response && response.data){
-       handleSetLogin(response.data.token)
-      console.log(response.data)
-      history.push('/profile')
-     }else{
-      setSignInError(true)
-     }
-      }catch(err){
-        setSignInError(true)
-      }
+       try {
+                const response = await api.post('users/login', values)
+                console.log(response)
+                handleSetLogin(response.data.token)
+                history.push('/')
+            } catch {
+                setSignInError(true)
+            }
     }    
   })
   
