@@ -24,7 +24,7 @@ const Login = () => {
 
 useEffect(() => {
   if(login){
-    history.push('/profile')
+    history.push('/dogs')
   }
 }, [login, history])
  

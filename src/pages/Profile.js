@@ -61,7 +61,7 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${login.id}` }
     };
         await api.post('/pets', values, config)
-        history.push('/profile')
+        history.push('/dogs')
   
      }catch(err){
       setFormErr(true)
