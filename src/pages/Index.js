@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import heroImg from "../assets/hero-img.png";
 import catImg from "../assets/gatos.jpeg";
 import dogImg from "../assets/cachorros.jpeg";
-import useAuth from "../hook/useAuth";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Index = () => {
-  const { login } = useAuth();
-  const history = useHistory();
-
-  useEffect(() => {
-    if (login) {
-      history.push("/profile");
-    }
-  }, [login, history]);
 
   return (
     <div className='bg-blue-50 dark:bg-gray-700'>

@@ -61,8 +61,8 @@ const Profile = () => {
     };
      try {
         console.log(values)
-        await api.post('/pets', values, config)
-        history.push('/dogs')
+        await api.post('/users/ongs/solicitation', values, config)
+        history.push('/')
   
      }catch(err){
       setFormErr(true)
