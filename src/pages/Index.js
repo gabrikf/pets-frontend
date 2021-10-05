@@ -13,7 +13,7 @@ const Index = () => {
           <div className="w-full  lg:w-1/2">
             <div className="lg:max-w-lg">
               <h1 className="text-2xl font-semibold text-gray-800 uppercase dark:text-white lg:text-3xl">
-                adote um amigo, ou de a chance de alguem adotar
+              adote um amigo, ou cadastre sua ONG
               </h1>
               <p className="mt-2 mb-6 text-gray-600 dark:text-gray-400">
                 Caso queira adotoar um dos pets basta procura-lo no nosso
