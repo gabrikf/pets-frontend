@@ -8,10 +8,16 @@ import * as Yup from 'yup'
 
 
 const loginSchema =  Yup.object().shape({
-  email: Yup.string()
+ email: Yup.string()
               .email('Por favor, digite um e-mail válido')
-              .required('Por favor, informe um e-mail.'),
-              
+              .required('Por favor, informe um e-mail.')
+              .test('is-unique', 'Por favor, digite um e-mail válido ', async(value) => {
+                const ret = await api.get(`/users/${value}`) 
+                if(ret.data[0]){
+                  return true
+                }
+                return false
+            }),        
   passwd: Yup.string()
           .required('Por favor, informe uma senha.'),
 })
