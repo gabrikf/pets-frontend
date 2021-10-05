@@ -23,7 +23,7 @@ const loginSchema =  Yup.object().shape({
 })
 
 const Login = () => {
-  const { handleSetLogin, login } = useAuth()
+  const { handleSetLogin } = useAuth()
   const [signInError, setSignInError ] = useState(false)
 
 
