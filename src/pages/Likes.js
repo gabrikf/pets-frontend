@@ -173,7 +173,7 @@ const Likes = () => {
               <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                 <a
                   className="cursor-pointer"
-                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a)https://www.petsjaragua.com.br/details/${incident.id_pet} -peguei seu contato do site petsjaragua`}
+                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Peguei seu contato do site petsjaragua. Eu gostaria de adotar o(a) https://www.petsjaragua.com.br/details/${incident.id_pet} `}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -181,8 +181,7 @@ const Likes = () => {
                 </a>
                 <a
                   className="cursor-pointer"
-                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Eu gostaria de adotar o(a) https://www.petsjaragua.com.br/details/${incident.id_pet} - peguei seu contato do site petsjaragua`}
-                  target="_blank"
+                  href={`https://api.whatsapp.com/send?phone=55${incident.whatsapp}&text=Olá, tudo bem? Peguei seu contato do site petsjaragua. Eu gostaria de adotar o(a) https://www.petsjaragua.com.br/details/${incident.id_pet} `}
                   rel="noreferrer"
                 >
                   <h1 className="px-2 text-sm">
