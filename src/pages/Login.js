@@ -29,13 +29,6 @@ const Login = () => {
 
   const history = useHistory()
 
-useEffect(() => {
-  if(login){
-    history.push('/dogs')
-  }
-}, [login, history])
- 
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -49,7 +42,7 @@ useEffect(() => {
                   setSignInError(true)
                 }
                 handleSetLogin(response.data.token)
-                history.push('/')
+                history.push('/dogs')
             } catch(e) {
                 setSignInError(true)
             }
