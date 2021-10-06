@@ -121,8 +121,8 @@ const PetRegister = () => {
                 value={formik.values.breed}
                 >
                   <option value='' hidden>Selecione uma opção...</option>
-                  <option value='Macho'>Cachorro</option>
-                  <option value='Fêmea'>Gato</option>
+                  <option value='Macho'>Macho</option>
+                  <option value='Fêmea'>Fêmea</option>
                 </select>
                 {formik.errors.breed && formik.touched.breed && <i className='text-red-400'>{formik.errors.breed}</i>}
                  
