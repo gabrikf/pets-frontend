@@ -108,7 +108,6 @@ const PetRegister = () => {
                   <option value='' hidden>Selecione uma opção...</option>
                   <option value='Cachorro'>Cachorro</option>
                   <option value='Gato'>Gato</option>
-                  <option value='Perdido'>Animal perdido</option>
                 </select>
                 {formik.errors.animal_type && formik.touched.animal_type && <i className='text-red-400'>{formik.errors.animal_type}</i>}
                 </div>
