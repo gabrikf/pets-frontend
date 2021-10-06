@@ -15,7 +15,7 @@ const petSchema = Yup.object().shape({
   animal_type: Yup.string()
                   .required('Por favor informe o tipo de animal'),
   breed: Yup.string()
-             .max(15, 'máximo 15 caracteres'),
+                .required('Por favor informe o sexo do animal'),
   description: Yup.string()
                   .max(30, 'Máximo de 30 caracteres'),
 })
@@ -114,16 +114,19 @@ const PetRegister = () => {
                 </div>
           
               <div className="w-full mt-0 mb-4">
-                  <label className="text-gray-700 dark:text-gray-200" for="password">Descrição da raça (se for definida)</label>
-                  <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
-                  type="text" 
-                  placeholder="Digite a raça do seu pet" 
-                  name="breed"
-                  aria-label="cidade"
-                  value={formik.values.breed}
-                  onChange={formik.handleChange}
-                  />
-                  {formik.errors.breed && formik.touched.breed && <i className='text-red-400'>{formik.errors.breed}</i>}
+              <label className="text-gray-700 dark:text-gray-200" for="text">Sexo:</label>
+                <select 
+                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                name='breed'
+                onChange={formik.handleChange}
+                value={formik.values.breed}
+                >
+                  <option value='' hidden>Selecione uma opção...</option>
+                  <option value='Macho'>Cachorro</option>
+                  <option value='Fêmea'>Gato</option>
+                </select>
+                {formik.errors.breed && formik.touched.breed && <i className='text-red-400'>{formik.errors.breed}</i>}
+                 
               </div>
               <div className="w-full mt-0 mb-4">
                   <label className="text-gray-700 dark:text-gray-200" for="password">Descrição breve (max: 30 caracteres)</label>

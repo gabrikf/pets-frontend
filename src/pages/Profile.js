@@ -297,6 +297,12 @@ const Profile = () => {
                 </strong>
                 {incident.pet_age}
               </p>
+              <div className="py-2 text-gray-700 dark:text-gray-400">
+                <strong className="text-black dark:text-white">
+                  Sexo:{" "}
+                </strong>
+                {incident.breed}
+              </div>
               <p className="h-24 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
