@@ -14,8 +14,10 @@ const petSchema = Yup.object().shape({
               .max(15, 'máximo 15 caracteres'),
   animal_type: Yup.string()
                   .required('Por favor informe o tipo de animal'),
-                  genre: Yup.string()
+  genre: Yup.string()
                 .required('Por favor informe o sexo do animal'),
+  size: Yup.string()
+                .required('Por favor informe o porte do animal'),
   description: Yup.string()
                   .max(30, 'Máximo de 30 caracteres'),
 })
@@ -144,7 +146,7 @@ const PetRegister = () => {
                   <option value='Méd-Grande - 20 - 25kg'>Méd-Grande - 20 - 25kg</option>
                   <option value='Grande - 25kg ou mais'>Grande - 25kg ou mais</option>
                 </select>
-                {formik.errors.genre && formik.touched.genre && <i className='text-red-400'>{formik.errors.genre}</i>}
+                {formik.errors.size && formik.touched.size && <i className='text-red-400'>{formik.errors.size}</i>}
                  
               </div>
               <div className="w-full mt-0 mb-4">
