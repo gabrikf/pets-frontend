@@ -189,7 +189,7 @@ const Dogs = () => {
                 <strong className="text-black dark:text-white">
                   Sexo:{" "}
                 </strong>
-                {incident.breed}
+                {incident.genre}
               </div>
               <div className="h-24 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">

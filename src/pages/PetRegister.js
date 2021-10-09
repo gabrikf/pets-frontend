@@ -14,7 +14,7 @@ const petSchema = Yup.object().shape({
               .max(15, 'máximo 15 caracteres'),
   animal_type: Yup.string()
                   .required('Por favor informe o tipo de animal'),
-  breed: Yup.string()
+                  genre: Yup.string()
                 .required('Por favor informe o sexo do animal'),
   description: Yup.string()
                   .max(30, 'Máximo de 30 caracteres'),
@@ -41,13 +41,14 @@ const PetRegister = () => {
       pet_name: '',
       pet_age: '',
       animal_type: '',
-      breed: '',
+      genre: '',
+      size: '',
       description: ''
     },
     validationSchema: petSchema,
     onSubmit: async values => {
       try {
-     
+        
         const config = {
           headers: { Authorization: `Bearer ${login.id}` }
       };
@@ -116,15 +117,34 @@ const PetRegister = () => {
               <label className="text-gray-700 dark:text-gray-200" for="text">Sexo:</label>
                 <select 
                 className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
-                name='breed'
+                name='genre'
                 onChange={formik.handleChange}
-                value={formik.values.breed}
+                value={formik.values.genre}
                 >
                   <option value='' hidden>Selecione uma opção...</option>
                   <option value='Macho'>Macho</option>
                   <option value='Fêmea'>Fêmea</option>
                 </select>
-                {formik.errors.breed && formik.touched.breed && <i className='text-red-400'>{formik.errors.breed}</i>}
+                {formik.errors.genre && formik.touched.genre && <i className='text-red-400'>{formik.errors.genre}</i>}
+                 
+              </div>
+              <div className="w-full mt-0 mb-4">
+              <label className="text-gray-700 dark:text-gray-200" for="text">Porte:</label>
+                <select 
+                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                name='size'
+                onChange={formik.handleChange}
+                value={formik.values.size}
+                >
+                  <option value='' hidden>Selecione uma opção...</option>
+                  <option value='Mini - até 5kg'>Mini - até 5kg</option>
+                  <option value='Pequeno - 5 - 10kg'>Pequeno - 5 - 10kg</option>
+                  <option value='Peq-Médio - 10 - 15kg'>Peq-Médio - 10 - 15kg</option>
+                  <option value='Médio - 15 - 20kg<'>Médio - 15 - 20kg</option>
+                  <option value='Méd-Grande - 20 - 25kg'>Méd-Grande - 20 - 25kg</option>
+                  <option value='Grande - 25kg ou mais'>Grande - 25kg ou mais</option>
+                </select>
+                {formik.errors.genre && formik.touched.genre && <i className='text-red-400'>{formik.errors.genre}</i>}
                  
               </div>
               <div className="w-full mt-0 mb-4">
