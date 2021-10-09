@@ -191,6 +191,12 @@ const Dogs = () => {
                 </strong>
                 {incident.genre}
               </div>
+              <div className="py-2 text-gray-700 dark:text-gray-400">
+                <strong className="text-black dark:text-white">
+                  Porte:{" "}
+                </strong>
+                {incident.size}
+              </div>
               <div className="h-24 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
