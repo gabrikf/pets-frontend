@@ -20,8 +20,9 @@ const userSchema = Yup.object().shape({
                 }
                 return false
             }),
-  whatsapp: Yup.string()
-              .min(11, 'Por favor, informe no formato xx xxxxx xxxx, no total de 11 dígitos.')
+  whatsapp: Yup.number()
+              .min(11, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
+              .max(11, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
               .required('Por favor, informe o número celular'),
   city: Yup.string()
               .min(3, 'Por favor, informe pelo menos 3 caracteres.')
@@ -119,7 +120,7 @@ const Users = () => {
                     name='whatsapp'
                     placeholder="Digite seu whatsApp" 
                     aria-label="whastsApp"
-                    value={formik.values.whatsapp}
+                    value={formik.values.whatsapp.replace('-', '').replace('(', '').replace(')', '')}
                     onChange={formik.handleChange}
                     />
                     {formik.errors.whatsapp && formik.touched.whatsapp && <i className='text-red-400'>{formik.errors.whatsapp}</i>}
