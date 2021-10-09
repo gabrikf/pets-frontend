@@ -65,7 +65,7 @@ const Login = () => {
                     name='email'
                     value={formik.values.email}
                     onChange={formik.handleChange}
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="email" placeholder="Email Address" aria-label="Email Address"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" type="email" placeholder="Email" aria-label="Email"
                     />
                      {formik.errors.email && formik.touched.email && <i className='text-red-400'>{formik.errors.email}</i>}
                 </div>
