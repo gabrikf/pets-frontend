@@ -102,10 +102,13 @@ const Header = () => {
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex-shrink-0 flex items-center">
+                  <Link
+                    to={'/'}>
                     <FaPaw
                       className="text-gray-900 dark:text-white"
                       size={30}
                     />
+                    </Link>
                   </div>
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
