@@ -17,9 +17,9 @@ const Index = () => {
                 adote um amigo, ou cadastre sua ONG
               </h1>
               <p className="mt-2 mb-6 text-gray-600 dark:text-gray-400">
-                Caso queira adotoar um dos pets basta procura-lo no nosso
-                portal. Mas se sua inteção é botar seu/seus pets para lista de
-                adoção ou interagir com os pets, basta se cadastrar.
+                Caso queira adotar um dos pets, basta procurá-lo no nosso
+                portal. Mas se sua intenção é colocar seus pets para lista de
+                adoção ou interagir com eles, basta se cadastrar.
               </p>
               {!login && (
                 <Link
