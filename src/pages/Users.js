@@ -81,7 +81,7 @@ const Users = () => {
 
                 <h3 className="mt-1 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Olá amigo, seja bem-vindo!</h3>
 
-                <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Estamos felizes em te-lo aqui, preencha seu cadastro.</p>
+                <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Estamos felizes em tê-lo aqui. Preencha seu cadastro.</p>
         
                 <form onSubmit={formik.handleSubmit}>
                     <div className="grid grid-cols-1 gap-6 mt-2 sm:grid-cols-2">
