@@ -21,8 +21,8 @@ const userSchema = Yup.object().shape({
                 return false
             }),
   whatsapp: Yup.number()
-              .min(11, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
-              .max(11, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
+              .min(10, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
+              .max(12, 'Por favor, informe no formato 47999990000, no total de 11 dígitos.')
               .required('Por favor, informe o número celular'),
   city: Yup.string()
               .min(3, 'Por favor, informe pelo menos 3 caracteres.')
