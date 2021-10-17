@@ -150,15 +150,15 @@ const PetRegister = () => {
                  
               </div>
               <div className="w-full mt-0 mb-4">
-                  <label className="text-gray-700 dark:text-gray-200" for="password">Descrição breve (max: 30 caracteres)</label>
-                  <input className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
+                  <label className="text-gray-700 dark:text-gray-200" for="password">Descrição:</label>
+                  <textarea className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring dark:text-white" 
                   type="text" 
-                  maxlength="30"
+                  maxlength="300"
                   placeholder="Digite a descrição do pet" 
                   name="description"
                   value={formik.values.description}
                   onChange={formik.handleChange}
-                  />
+                  ></textarea>
                     {formik.errors.description && formik.touched.description && <i className='text-red-400'>{formik.errors.description}</i>}
               </div>  
               {signInError && <Alert>Erro no cadastro, verifique o que você pode ter errado.</Alert>}
