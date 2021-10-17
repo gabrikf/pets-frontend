@@ -1,14 +1,20 @@
 import React, { createContext, useEffect, useState  } from "react"
 import {ImSpinner3} from 'react-icons/im'
-
+import { useHistory } from 'react-router-dom'
 export const AuthContext = createContext({})
 
 
 export function AuthContextProvider(props) {
 
+  const history = useHistory();
+
   const [loading, setLoading] = useState(true);
   const [login, setLogIn] = useState()
   useEffect(() => {
+    if (login && login.expiresIn > Date.now() * 1000) {
+      handleLogout();
+      history.push("/");
+    }
     const loadStorageData = async() => {
       const storegedtoken = await localStorage.getItem('token')
 
