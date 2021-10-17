@@ -309,7 +309,7 @@ const Profile = () => {
                 </strong>
                 {incident.size}
               </div>
-              <div className="h-56 py-2 text-gray-700 dark:text-gray-400">
+              <div className="h-60 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
                 </strong>{" "}

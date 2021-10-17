@@ -179,7 +179,7 @@ const Likes = () => {
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
                 </strong>{" "}
-                <p className='break-words'>{String(incident.description).substring(0,220)}{String(incident.description).length > 220 && <Link to={`details/${incident.id_pet}`}>ver mais...'</Link>}</p>
+                <p className='break-words'>{String(incident.description).substring(0,160)}{String(incident.description).length > 160 && <Link to={`details/${incident.id_pet}`}>{" "}<span className='text-indigo-700'>ver mais...</span></Link>}</p>
               </div>
 
               <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
