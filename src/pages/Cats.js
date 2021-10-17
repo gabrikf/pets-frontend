@@ -209,11 +209,11 @@ const Cats = () => {
                 </strong>
                 {incident.size}
               </div>
-              <div className="h-24 py-2 text-gray-700 dark:text-gray-400">
+              <div className="h-48 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
                 </strong>{" "}
-                <p>{incident.description}</p>
+                <p className='break-words'>{String(incident.description).substring(0,220)}{String(incident.description).length > 220 && <Link to={`details/${incident.id_pet}`}>ver mais...'</Link>}</p>
               </div>
 
               <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
