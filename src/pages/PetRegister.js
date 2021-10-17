@@ -19,7 +19,7 @@ const petSchema = Yup.object().shape({
   size: Yup.string()
                 .required('Por favor informe o porte do animal'),
   description: Yup.string()
-                  .max(300, 'Máximo de 300 caracteres'),
+                  .max(260, 'Máximo de 260 caracteres'),
 })
 
 const PetRegister = () => {
