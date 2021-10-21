@@ -205,11 +205,11 @@ const Ongs = () => {
                 </strong>
                 {incident.size}
               </div>
-              <div className="h-48 py-2 text-gray-700 dark:text-gray-400">
+              <div className="h-40 py-2 text-gray-700 dark:text-gray-400">
                 <strong className="text-black dark:text-white">
                   Descrição do pet:{" "}
                 </strong>{" "}
-                <p className='break-words'>{String(incident.description).substring(0,160)}{String(incident.description).length > 160 && <Link to={`details/${incident.id_pet}`}>{" "}<span className='text-indigo-700'>ver mais...</span></Link>}</p>
+                <p className='break-words'>{String(incident.description).substring(0,140)}{String(incident.description).length > 140 && <Link to={`details/${incident.id_pet}`}>{" "}<span className='text-indigo-700'>ver mais...</span></Link>}</p>
               </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
